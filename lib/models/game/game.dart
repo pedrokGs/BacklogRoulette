@@ -1,9 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+part 'game.freezed.dart';
 part 'game.g.dart';
 
 @freezed
-class Game with _$Game {
+abstract class Game with _$Game {
   const factory Game({
     required String id,
     required String name,
