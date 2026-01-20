@@ -1,0 +1,1 @@
+enum GameState {notPlayed, playing, finished, dropped}
