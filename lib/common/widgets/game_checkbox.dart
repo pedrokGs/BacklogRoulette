@@ -30,7 +30,7 @@ class GameCheckbox extends ConsumerWidget {
           width: 50,
           height: 70,
           fit: BoxFit.cover,
-          errorWidget: (context, url, error) => Icon(Icons.error),
+          errorWidget: (context, url, error) => CachedNetworkImage(imageUrl: game.igdbCoverUrl, width: 50, height: 70, fit: BoxFit.cover,),
         ),
       ),
       title: Text(game.name, style: TextStyle(fontWeight: FontWeight.bold)),

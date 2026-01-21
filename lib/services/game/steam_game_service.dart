@@ -8,7 +8,7 @@ class SteamGameService {
 
   const SteamGameService({required this.steamKey});
 
-  Future<List<Game>> getOwnedGamesForSteamId(String steamId) async {
+  Future<List<Game>> getUserGames(String steamId) async {
     // Should return a List containing all Games the user has on steam library, ordered by time since last played
     final uri = Uri.parse(
       'https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=$steamKey&steamid=$steamId&format=json&include_appinfo=true&include_played_free_games=true',
@@ -19,14 +19,14 @@ class SteamGameService {
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = jsonDecode(response.body);
 
-        // A Steam retorna: { "response": { "game_count": X, "games": [...] } }
+        // Steam returns: { "response": { "game_count": X, "games": [...] } }
         final List? gamesJson = data['response']['games'];
 
         if (gamesJson == null) return [];
 
         final gameList = gamesJson.map((e) => Game.fromSteam(e)).toList();
 
-        // Ordenar: mais recentes primeiro (quem tem maior timestamp)
+        // Order: recently played games first
         gameList.sort((a, b) => b.timeLastPlayed.compareTo(a.timeLastPlayed));
 
         return gameList;

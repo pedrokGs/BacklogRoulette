@@ -1,8 +1,7 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 
-class IGDBService{
+class IGDBService {
   final String clientId;
   final String clientSecret;
   String? _accessToken;
@@ -11,34 +10,32 @@ class IGDBService{
 
   Future<void> _authenticate() async {
     if (_accessToken != null) return;
-
-    final response = await http.post(
-      Uri.parse('https://id.twitch.tv/oauth2/token?client_id=$clientId&client_secret=$clientSecret&grant_type=client_credentials'),
-    );
-
-    _accessToken = jsonDecode(response.body)['access_token'];
-  }
-
-  // Buscar a capa usando o ID da steam
-  Future<String?> getCoverForSteamGame(String steamAppId, String gameName) async {
-    await _authenticate();
-
-    // TENTATIVA 1: Pelo ID da Steam
-    final String queryById = 'fields cover.url; where external_games.category = 1 & external_games.uid = "$steamAppId";';
-    String? url = await _makeIGDBRequest(queryById);
-
-    // TENTATIVA 2: Pelo Nome (Se a primeira falhou)
-    if (url == null) {
-      // search busca por similaridade, limit 1 pega o resultado mais provável
-      final String queryByName = 'fields cover.url; search "$gameName"; limit 1;';
-      url = await _makeIGDBRequest(queryByName);
+    try {
+      final response = await http.post(
+        Uri.parse(
+            'https://id.twitch.tv/oauth2/token?client_id=$clientId&client_secret=$clientSecret&grant_type=client_credentials'),
+      );
+      if (response.statusCode == 200) {
+        _accessToken = jsonDecode(response.body)['access_token'];
+      }
+    } catch (e) {
+      print('Erro autenticação IGDB: $e');
     }
-
-    return url;
   }
 
-// Helper
-  Future<String?> _makeIGDBRequest(String query) async {
+  /// Busca metadados para uma LISTA de IDs da Steam.
+  Future<Map<String, dynamic>> getGamesMetadataBySteamIds(List<String> steamIds) async {
+    await _authenticate();
+    if (_accessToken == null || steamIds.isEmpty) return {};
+
+    final idsFormatted = steamIds.map((id) => '"$id"').join(',');
+
+    final query = '''
+      fields name, cover.url, genres.name, artworks.url, external_games.uid;
+      where external_games.category = 1 & external_games.uid = ($idsFormatted);
+      limit 500;
+    ''';
+
     try {
       final response = await http.post(
         Uri.parse('https://api.igdb.com/v4/games'),
@@ -50,15 +47,56 @@ class IGDBService{
       );
 
       if (response.statusCode == 200) {
-        final List data = jsonDecode(response.body);
-        if (data.isNotEmpty && data[0]['cover'] != null) {
-          String url = data[0]['cover']['url'];
-          return 'https:${url.replaceAll('t_thumb', 't_cover_big')}';
+        final List<dynamic> data = jsonDecode(response.body);
+        final Map<String, dynamic> mappedData = {};
+
+        for (var gameData in data) {
+          if (gameData['external_games'] != null) {
+            for (var ext in gameData['external_games']) {
+              final steamId = ext['uid'].toString();
+              mappedData[steamId] = gameData;
+            }
+          }
+        }
+        return mappedData;
+      }
+    } catch (e) {
+      print("Erro Batch IGDB: $e");
+    }
+    return {};
+  }
+
+  /// Usar este método no GameRepository quando o ID da Steam não retornar nada.
+  Future<Map<String, dynamic>?> getGameMetadataByName(String gameName) async {
+    await _authenticate();
+    if (_accessToken == null) return null;
+
+    final query = 'fields name, cover.url, genres.name, artworks.url; search "$gameName"; limit 1;';
+
+    try {
+      final response = await http.post(
+        Uri.parse('https://api.igdb.com/v4/games'),
+        headers: {
+          'Client-ID': clientId,
+          'Authorization': 'Bearer $_accessToken',
+        },
+        body: query,
+      );
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = jsonDecode(response.body);
+        if (data.isNotEmpty) {
+          return data[0];
         }
       }
     } catch (e) {
-      print("Erro IGDB: $e");
+      print("Erro busca por nome IGDB: $e");
     }
     return null;
+  }
+
+  String getHighResImageUrl(String? url) {
+    if (url == null) return '';
+    return 'https:${url.replaceAll('t_thumb', 't_cover_big')}';
   }
 }

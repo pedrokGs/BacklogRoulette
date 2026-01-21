@@ -24,6 +24,7 @@ class RouletteCard extends StatelessWidget {
               child: CachedNetworkImage(
                 imageUrl: game.coverUrl,
                 fit: BoxFit.cover,
+                errorWidget: (context, url, error) => CachedNetworkImage(imageUrl: game.igdbCoverUrl, fit: BoxFit.cover,),
               ),
             ),
             Positioned(

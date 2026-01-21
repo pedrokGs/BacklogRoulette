@@ -16,15 +16,8 @@ class LibraryStateNotifier extends Notifier<LibraryScreenState>{
   Future<void> searchGamesForUserId(String userId) async{
     state = LibraryScreenState.loading();
     try{
-      final gamesFromSteam = await ref.read(steamGameServiceProvider).getOwnedGamesForSteamId(userId);
-      state = LibraryScreenState.loaded(games: gamesFromSteam);
-      
-      for(var i = 0; i < gamesFromSteam.length; i++){
-        final hdCover = await ref.read(igdbServiceProvider).getCoverForSteamGame(gamesFromSteam[i].steamAppId!,gamesFromSteam[i].name);
-        if(hdCover!= null){
-
-        }
-      }
+      final games = await ref.read(gameRepositoryProvider).getEnrichedGames(userId);
+      state = LibraryScreenState.loaded(games: games);
     } catch(e){
       state = LibraryScreenState.error(message: e.toString());
     }

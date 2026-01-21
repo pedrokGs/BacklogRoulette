@@ -12,11 +12,6 @@ class GameCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Tenta buscar a capa HD se tiver um steamAppId
-    final igdbCover = game.steamAppId != null
-        ? ref.watch(gameCoverProvider(game))
-        : null;
-
     return AspectRatio(
       aspectRatio: 1.0,
       child: ClipRRect(
@@ -25,11 +20,7 @@ class GameCard extends ConsumerWidget {
           margin: EdgeInsets.zero,
           child: Stack(
             children: [
-              igdbCover?.when(
-                data: (hdUrl) => _buildImage(hdUrl ?? game.coverUrl), // HD ou Steam
-                loading: () => _buildImage(game.coverUrl, isBlur: true), // Steam enquanto carrega
-                error: (_, __) => _buildImage(game.coverUrl), // Erro volta pra Steam
-              ) ?? _buildImage(game.coverUrl), // Caso não seja Steam
+              _buildImage(game.coverUrl, backupUrl: game.igdbCoverUrl),
 
               // Gradiente
               Positioned.fill(
@@ -66,18 +57,28 @@ class GameCard extends ConsumerWidget {
     );
   }
 
-  // Helper para não repetir código de imagem
-  Widget _buildImage(String url, {bool isBlur = false}) {
+  Widget _buildImage(String url, {String? backupUrl, bool isBlur = false}) {
     return CachedNetworkImage(
       imageUrl: url,
-      fit: BoxFit.cover, // Importante para preencher o card
+      fit: BoxFit.cover,
       width: double.infinity,
-      alignment: Alignment.center,
       height: double.infinity,
+      alignment: Alignment.center,
       color: isBlur ? Colors.black.withValues(alpha: 0.3) : null,
       colorBlendMode: isBlur ? BlendMode.darken : null,
       placeholder: (context, url) => Container(color: Colors.grey[900]),
-      errorWidget: (context, url, error) => const Icon(Icons.videogame_asset),
+      // Se a imagem principal falhar, tenta a reserva
+      errorWidget: (context, url, error) {
+        if (backupUrl != null && backupUrl.isNotEmpty) {
+          return CachedNetworkImage(
+            imageUrl: backupUrl,
+            fit: BoxFit.cover,
+            placeholder: (context, url) => Container(color: Colors.grey[900]),
+            errorWidget: (context, url, error) => const Icon(Icons.videogame_asset),
+          );
+        }
+        return const Icon(Icons.videogame_asset);
+      },
     );
   }
 }
