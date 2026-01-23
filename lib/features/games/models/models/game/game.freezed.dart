@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Game {
 
- String get id; String get name; String get coverUrl; String get igdbCoverUrl; List<String> get genres; GameState get gameState; String? get steamAppId; int get playtime; int get timeLastPlayed; bool get isManualEntry;
+ String get id; String get name; String get coverUrl; String get igdbCoverUrl; List<String> get genres; GameState get gameState; String? get igdbId; String? get steamAppId; int get playtime; int get timeLastPlayed; bool get isManualEntry;
 /// Create a copy of Game
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $GameCopyWith<Game> get copyWith => _$GameCopyWithImpl<Game>(this as Game, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Game&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.coverUrl, coverUrl) || other.coverUrl == coverUrl)&&(identical(other.igdbCoverUrl, igdbCoverUrl) || other.igdbCoverUrl == igdbCoverUrl)&&const DeepCollectionEquality().equals(other.genres, genres)&&(identical(other.gameState, gameState) || other.gameState == gameState)&&(identical(other.steamAppId, steamAppId) || other.steamAppId == steamAppId)&&(identical(other.playtime, playtime) || other.playtime == playtime)&&(identical(other.timeLastPlayed, timeLastPlayed) || other.timeLastPlayed == timeLastPlayed)&&(identical(other.isManualEntry, isManualEntry) || other.isManualEntry == isManualEntry));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Game&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.coverUrl, coverUrl) || other.coverUrl == coverUrl)&&(identical(other.igdbCoverUrl, igdbCoverUrl) || other.igdbCoverUrl == igdbCoverUrl)&&const DeepCollectionEquality().equals(other.genres, genres)&&(identical(other.gameState, gameState) || other.gameState == gameState)&&(identical(other.igdbId, igdbId) || other.igdbId == igdbId)&&(identical(other.steamAppId, steamAppId) || other.steamAppId == steamAppId)&&(identical(other.playtime, playtime) || other.playtime == playtime)&&(identical(other.timeLastPlayed, timeLastPlayed) || other.timeLastPlayed == timeLastPlayed)&&(identical(other.isManualEntry, isManualEntry) || other.isManualEntry == isManualEntry));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,coverUrl,igdbCoverUrl,const DeepCollectionEquality().hash(genres),gameState,steamAppId,playtime,timeLastPlayed,isManualEntry);
+int get hashCode => Object.hash(runtimeType,id,name,coverUrl,igdbCoverUrl,const DeepCollectionEquality().hash(genres),gameState,igdbId,steamAppId,playtime,timeLastPlayed,isManualEntry);
 
 @override
 String toString() {
-  return 'Game(id: $id, name: $name, coverUrl: $coverUrl, igdbCoverUrl: $igdbCoverUrl, genres: $genres, gameState: $gameState, steamAppId: $steamAppId, playtime: $playtime, timeLastPlayed: $timeLastPlayed, isManualEntry: $isManualEntry)';
+  return 'Game(id: $id, name: $name, coverUrl: $coverUrl, igdbCoverUrl: $igdbCoverUrl, genres: $genres, gameState: $gameState, igdbId: $igdbId, steamAppId: $steamAppId, playtime: $playtime, timeLastPlayed: $timeLastPlayed, isManualEntry: $isManualEntry)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $GameCopyWith<$Res>  {
   factory $GameCopyWith(Game value, $Res Function(Game) _then) = _$GameCopyWithImpl;
 @useResult
 $Res call({
- String id, String name, String coverUrl, String igdbCoverUrl, List<String> genres, GameState gameState, String? steamAppId, int playtime, int timeLastPlayed, bool isManualEntry
+ String id, String name, String coverUrl, String igdbCoverUrl, List<String> genres, GameState gameState, String? igdbId, String? steamAppId, int playtime, int timeLastPlayed, bool isManualEntry
 });
 
 
@@ -65,7 +65,7 @@ class _$GameCopyWithImpl<$Res>
 
 /// Create a copy of Game
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? coverUrl = null,Object? igdbCoverUrl = null,Object? genres = null,Object? gameState = null,Object? steamAppId = freezed,Object? playtime = null,Object? timeLastPlayed = null,Object? isManualEntry = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? coverUrl = null,Object? igdbCoverUrl = null,Object? genres = null,Object? gameState = null,Object? igdbId = freezed,Object? steamAppId = freezed,Object? playtime = null,Object? timeLastPlayed = null,Object? isManualEntry = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -73,7 +73,8 @@ as String,coverUrl: null == coverUrl ? _self.coverUrl : coverUrl // ignore: cast
 as String,igdbCoverUrl: null == igdbCoverUrl ? _self.igdbCoverUrl : igdbCoverUrl // ignore: cast_nullable_to_non_nullable
 as String,genres: null == genres ? _self.genres : genres // ignore: cast_nullable_to_non_nullable
 as List<String>,gameState: null == gameState ? _self.gameState : gameState // ignore: cast_nullable_to_non_nullable
-as GameState,steamAppId: freezed == steamAppId ? _self.steamAppId : steamAppId // ignore: cast_nullable_to_non_nullable
+as GameState,igdbId: freezed == igdbId ? _self.igdbId : igdbId // ignore: cast_nullable_to_non_nullable
+as String?,steamAppId: freezed == steamAppId ? _self.steamAppId : steamAppId // ignore: cast_nullable_to_non_nullable
 as String?,playtime: null == playtime ? _self.playtime : playtime // ignore: cast_nullable_to_non_nullable
 as int,timeLastPlayed: null == timeLastPlayed ? _self.timeLastPlayed : timeLastPlayed // ignore: cast_nullable_to_non_nullable
 as int,isManualEntry: null == isManualEntry ? _self.isManualEntry : isManualEntry // ignore: cast_nullable_to_non_nullable
@@ -162,10 +163,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  String coverUrl,  String igdbCoverUrl,  List<String> genres,  GameState gameState,  String? steamAppId,  int playtime,  int timeLastPlayed,  bool isManualEntry)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  String coverUrl,  String igdbCoverUrl,  List<String> genres,  GameState gameState,  String? igdbId,  String? steamAppId,  int playtime,  int timeLastPlayed,  bool isManualEntry)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Game() when $default != null:
-return $default(_that.id,_that.name,_that.coverUrl,_that.igdbCoverUrl,_that.genres,_that.gameState,_that.steamAppId,_that.playtime,_that.timeLastPlayed,_that.isManualEntry);case _:
+return $default(_that.id,_that.name,_that.coverUrl,_that.igdbCoverUrl,_that.genres,_that.gameState,_that.igdbId,_that.steamAppId,_that.playtime,_that.timeLastPlayed,_that.isManualEntry);case _:
   return orElse();
 
 }
@@ -183,10 +184,10 @@ return $default(_that.id,_that.name,_that.coverUrl,_that.igdbCoverUrl,_that.genr
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  String coverUrl,  String igdbCoverUrl,  List<String> genres,  GameState gameState,  String? steamAppId,  int playtime,  int timeLastPlayed,  bool isManualEntry)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  String coverUrl,  String igdbCoverUrl,  List<String> genres,  GameState gameState,  String? igdbId,  String? steamAppId,  int playtime,  int timeLastPlayed,  bool isManualEntry)  $default,) {final _that = this;
 switch (_that) {
 case _Game():
-return $default(_that.id,_that.name,_that.coverUrl,_that.igdbCoverUrl,_that.genres,_that.gameState,_that.steamAppId,_that.playtime,_that.timeLastPlayed,_that.isManualEntry);case _:
+return $default(_that.id,_that.name,_that.coverUrl,_that.igdbCoverUrl,_that.genres,_that.gameState,_that.igdbId,_that.steamAppId,_that.playtime,_that.timeLastPlayed,_that.isManualEntry);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -203,10 +204,10 @@ return $default(_that.id,_that.name,_that.coverUrl,_that.igdbCoverUrl,_that.genr
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  String coverUrl,  String igdbCoverUrl,  List<String> genres,  GameState gameState,  String? steamAppId,  int playtime,  int timeLastPlayed,  bool isManualEntry)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  String coverUrl,  String igdbCoverUrl,  List<String> genres,  GameState gameState,  String? igdbId,  String? steamAppId,  int playtime,  int timeLastPlayed,  bool isManualEntry)?  $default,) {final _that = this;
 switch (_that) {
 case _Game() when $default != null:
-return $default(_that.id,_that.name,_that.coverUrl,_that.igdbCoverUrl,_that.genres,_that.gameState,_that.steamAppId,_that.playtime,_that.timeLastPlayed,_that.isManualEntry);case _:
+return $default(_that.id,_that.name,_that.coverUrl,_that.igdbCoverUrl,_that.genres,_that.gameState,_that.igdbId,_that.steamAppId,_that.playtime,_that.timeLastPlayed,_that.isManualEntry);case _:
   return null;
 
 }
@@ -218,7 +219,7 @@ return $default(_that.id,_that.name,_that.coverUrl,_that.igdbCoverUrl,_that.genr
 @JsonSerializable()
 
 class _Game implements Game {
-  const _Game({required this.id, required this.name, required this.coverUrl, required this.igdbCoverUrl, required final  List<String> genres, required this.gameState, this.steamAppId, this.playtime = 0, this.timeLastPlayed = 0, this.isManualEntry = false}): _genres = genres;
+  const _Game({required this.id, required this.name, required this.coverUrl, required this.igdbCoverUrl, required final  List<String> genres, required this.gameState, this.igdbId, this.steamAppId, this.playtime = 0, this.timeLastPlayed = 0, this.isManualEntry = false}): _genres = genres;
   factory _Game.fromJson(Map<String, dynamic> json) => _$GameFromJson(json);
 
 @override final  String id;
@@ -233,6 +234,7 @@ class _Game implements Game {
 }
 
 @override final  GameState gameState;
+@override final  String? igdbId;
 @override final  String? steamAppId;
 @override@JsonKey() final  int playtime;
 @override@JsonKey() final  int timeLastPlayed;
@@ -251,16 +253,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Game&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.coverUrl, coverUrl) || other.coverUrl == coverUrl)&&(identical(other.igdbCoverUrl, igdbCoverUrl) || other.igdbCoverUrl == igdbCoverUrl)&&const DeepCollectionEquality().equals(other._genres, _genres)&&(identical(other.gameState, gameState) || other.gameState == gameState)&&(identical(other.steamAppId, steamAppId) || other.steamAppId == steamAppId)&&(identical(other.playtime, playtime) || other.playtime == playtime)&&(identical(other.timeLastPlayed, timeLastPlayed) || other.timeLastPlayed == timeLastPlayed)&&(identical(other.isManualEntry, isManualEntry) || other.isManualEntry == isManualEntry));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Game&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.coverUrl, coverUrl) || other.coverUrl == coverUrl)&&(identical(other.igdbCoverUrl, igdbCoverUrl) || other.igdbCoverUrl == igdbCoverUrl)&&const DeepCollectionEquality().equals(other._genres, _genres)&&(identical(other.gameState, gameState) || other.gameState == gameState)&&(identical(other.igdbId, igdbId) || other.igdbId == igdbId)&&(identical(other.steamAppId, steamAppId) || other.steamAppId == steamAppId)&&(identical(other.playtime, playtime) || other.playtime == playtime)&&(identical(other.timeLastPlayed, timeLastPlayed) || other.timeLastPlayed == timeLastPlayed)&&(identical(other.isManualEntry, isManualEntry) || other.isManualEntry == isManualEntry));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,coverUrl,igdbCoverUrl,const DeepCollectionEquality().hash(_genres),gameState,steamAppId,playtime,timeLastPlayed,isManualEntry);
+int get hashCode => Object.hash(runtimeType,id,name,coverUrl,igdbCoverUrl,const DeepCollectionEquality().hash(_genres),gameState,igdbId,steamAppId,playtime,timeLastPlayed,isManualEntry);
 
 @override
 String toString() {
-  return 'Game(id: $id, name: $name, coverUrl: $coverUrl, igdbCoverUrl: $igdbCoverUrl, genres: $genres, gameState: $gameState, steamAppId: $steamAppId, playtime: $playtime, timeLastPlayed: $timeLastPlayed, isManualEntry: $isManualEntry)';
+  return 'Game(id: $id, name: $name, coverUrl: $coverUrl, igdbCoverUrl: $igdbCoverUrl, genres: $genres, gameState: $gameState, igdbId: $igdbId, steamAppId: $steamAppId, playtime: $playtime, timeLastPlayed: $timeLastPlayed, isManualEntry: $isManualEntry)';
 }
 
 
@@ -271,7 +273,7 @@ abstract mixin class _$GameCopyWith<$Res> implements $GameCopyWith<$Res> {
   factory _$GameCopyWith(_Game value, $Res Function(_Game) _then) = __$GameCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name, String coverUrl, String igdbCoverUrl, List<String> genres, GameState gameState, String? steamAppId, int playtime, int timeLastPlayed, bool isManualEntry
+ String id, String name, String coverUrl, String igdbCoverUrl, List<String> genres, GameState gameState, String? igdbId, String? steamAppId, int playtime, int timeLastPlayed, bool isManualEntry
 });
 
 
@@ -288,7 +290,7 @@ class __$GameCopyWithImpl<$Res>
 
 /// Create a copy of Game
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? coverUrl = null,Object? igdbCoverUrl = null,Object? genres = null,Object? gameState = null,Object? steamAppId = freezed,Object? playtime = null,Object? timeLastPlayed = null,Object? isManualEntry = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? coverUrl = null,Object? igdbCoverUrl = null,Object? genres = null,Object? gameState = null,Object? igdbId = freezed,Object? steamAppId = freezed,Object? playtime = null,Object? timeLastPlayed = null,Object? isManualEntry = null,}) {
   return _then(_Game(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -296,7 +298,8 @@ as String,coverUrl: null == coverUrl ? _self.coverUrl : coverUrl // ignore: cast
 as String,igdbCoverUrl: null == igdbCoverUrl ? _self.igdbCoverUrl : igdbCoverUrl // ignore: cast_nullable_to_non_nullable
 as String,genres: null == genres ? _self._genres : genres // ignore: cast_nullable_to_non_nullable
 as List<String>,gameState: null == gameState ? _self.gameState : gameState // ignore: cast_nullable_to_non_nullable
-as GameState,steamAppId: freezed == steamAppId ? _self.steamAppId : steamAppId // ignore: cast_nullable_to_non_nullable
+as GameState,igdbId: freezed == igdbId ? _self.igdbId : igdbId // ignore: cast_nullable_to_non_nullable
+as String?,steamAppId: freezed == steamAppId ? _self.steamAppId : steamAppId // ignore: cast_nullable_to_non_nullable
 as String?,playtime: null == playtime ? _self.playtime : playtime // ignore: cast_nullable_to_non_nullable
 as int,timeLastPlayed: null == timeLastPlayed ? _self.timeLastPlayed : timeLastPlayed // ignore: cast_nullable_to_non_nullable
 as int,isManualEntry: null == isManualEntry ? _self.isManualEntry : isManualEntry // ignore: cast_nullable_to_non_nullable

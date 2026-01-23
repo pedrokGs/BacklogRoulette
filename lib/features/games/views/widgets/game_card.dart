@@ -1,16 +1,15 @@
 import 'package:backlog_roulette/features/games/models/models/game/game.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class GameCard extends ConsumerWidget {
+class GameCard extends StatelessWidget {
   final Game game;
   final VoidCallback? onTap;
   const GameCard({super.key, required this.game, this.onTap});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: 1.0,
       child: ClipRRect(
@@ -21,7 +20,6 @@ class GameCard extends ConsumerWidget {
             children: [
               _buildImage(game.coverUrl, backupUrl: game.igdbCoverUrl),
 
-              // Gradiente
               Positioned.fill(
                 child: Container(
                   decoration: BoxDecoration(
@@ -34,7 +32,6 @@ class GameCard extends ConsumerWidget {
                 ),
               ),
 
-              // Nome do Jogo
               Positioned(
                 bottom: 8,
                 left: 8,

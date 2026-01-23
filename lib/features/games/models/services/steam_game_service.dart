@@ -24,7 +24,18 @@ class SteamGameService {
 
         if (gamesJson == null) return [];
 
-        final gameList = gamesJson.map((e) => Game.fromSteam(e)).toList();
+        final forbiddenTerms = [
+          'beta', 'alpha', 'prologue', 'test server',
+          'demo', 'trial', 'playtest', 'dedicated server'
+        ];
+
+        final gameList = gamesJson
+            .map((e) => Game.fromSteam(e))
+            .where((game) {
+          final nameLower = game.name.toLowerCase();
+          return !forbiddenTerms.any((term) => nameLower.contains(term));
+        })
+            .toList();
 
         // Order: recently played games first
         gameList.sort((a, b) => b.timeLastPlayed.compareTo(a.timeLastPlayed));
