@@ -1,10 +1,10 @@
-import 'package:backlog_roulette/config/app_router.dart';
-import 'package:backlog_roulette/config/firebase/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'core/firebase/firebase_options.dart';
+import 'core/router/app_router.dart';
 import 'di/notifiers.dart';
 
 Future<void> main() async{

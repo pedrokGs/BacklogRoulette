@@ -1,8 +1,7 @@
 import 'package:backlog_roulette/di/api_providers.dart';
-import 'package:backlog_roulette/models/game/game.dart';
-import 'package:backlog_roulette/repositories/game_repository.dart';
-import 'package:backlog_roulette/services/game/igdb_service.dart';
-import 'package:backlog_roulette/services/game/steam_game_service.dart';
+import 'package:backlog_roulette/features/games/models/repositories/game_repository.dart';
+import 'package:backlog_roulette/features/games/models/services/igdb_service.dart';
+import 'package:backlog_roulette/features/games/models/services/steam_game_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final steamGameServiceProvider = Provider(
