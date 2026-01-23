@@ -3,6 +3,7 @@ import 'package:backlog_roulette/features/games/views/widgets/roulette_card.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:backlog_roulette/features/games/models/models/game/game.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class RouletteWheel extends StatefulWidget {
   final List<Game> games;
@@ -31,6 +32,12 @@ class _RouletteWheelState extends State<RouletteWheel> {
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  Future<void> _startRoulette() async {
+    final player = AudioPlayer();
+    player.play(AssetSource('audio/roulette_spin.mp3'));
+    _spin();
   }
 
   void _spin() {
@@ -72,7 +79,7 @@ class _RouletteWheelState extends State<RouletteWheel> {
         backgroundColor: const Color(0xFF1E222B),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
-          side: BorderSide(color: _neonGold, width: 2), // Borda Dourada
+          side: BorderSide(color: _neonGold, width: 2),
         ),
         title: Text(
             "DESTINY CHOSEN",
@@ -196,7 +203,7 @@ class _RouletteWheelState extends State<RouletteWheel> {
               width: 250,
               height: 60,
               child: ElevatedButton(
-                onPressed: _spin,
+                onPressed: _startRoulette,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: _neonGold,
                   foregroundColor: Colors.black,

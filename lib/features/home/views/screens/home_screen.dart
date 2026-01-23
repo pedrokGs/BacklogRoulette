@@ -1,6 +1,5 @@
-import 'package:backlog_roulette/features/games/views/library_screen.dart';
-import 'package:backlog_roulette/features/games/views/roulette_screen.dart';
-import 'package:backlog_roulette/features/settings/views/screens/settings_screen.dart';
+import 'package:backlog_roulette/features/games/views/screens/library_screen.dart';
+import 'package:backlog_roulette/features/games/views/screens/roulette_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,7 +12,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController();
   int selectedIndex = 0;
-  List<Widget> screens = [LibraryScreen(), RouletteScreen(), SettingsScreen()];
+  List<Widget> screens = [LibraryScreen(), RouletteScreen()];
 
   @override
   Widget build(BuildContext context) {

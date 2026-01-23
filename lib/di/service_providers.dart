@@ -1,7 +1,9 @@
 import 'package:backlog_roulette/di/api_providers.dart';
+import 'package:backlog_roulette/features/auth/models/services/auth_service.dart';
 import 'package:backlog_roulette/features/games/models/repositories/game_repository.dart';
 import 'package:backlog_roulette/features/games/models/services/igdb_service.dart';
 import 'package:backlog_roulette/features/games/models/services/steam_game_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final steamGameServiceProvider = Provider(
@@ -14,3 +16,5 @@ final igdbServiceProvider = Provider(
   ),
 );
 final gameRepositoryProvider = Provider((ref) => GameRepository(steamService: ref.watch(steamGameServiceProvider), igdbService: ref.watch(igdbServiceProvider)),);
+
+final authServiceProvider = Provider((ref) => AuthService(firebaseAuth: FirebaseAuth.instance),);
