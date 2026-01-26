@@ -1,20 +1,23 @@
 import 'dart:math';
+import 'package:backlog_roulette/features/games/models/utils/roulette_calculator.dart';
 import 'package:backlog_roulette/features/games/views/widgets/roulette_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:backlog_roulette/features/games/models/models/game/game.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RouletteWheel extends StatefulWidget {
+class RouletteWheel extends ConsumerStatefulWidget {
   final List<Game> games;
+  final Map<Game, double> weights;
 
-  const RouletteWheel({super.key, required this.games});
+  const RouletteWheel({super.key, required this.games, required this.weights});
 
   @override
-  State<RouletteWheel> createState() => _RouletteWheelState();
+  ConsumerState<RouletteWheel> createState() => _RouletteWheelState();
 }
 
-class _RouletteWheelState extends State<RouletteWheel> {
+class _RouletteWheelState extends ConsumerState<RouletteWheel> {
   late FixedExtentScrollController _controller;
   bool _isSpinning = false;
 
@@ -45,9 +48,11 @@ class _RouletteWheelState extends State<RouletteWheel> {
 
     setState(() => _isSpinning = true);
 
-    // Lógica de vencedor
     final random = Random();
-    final winnerIndex = random.nextInt(widget.games.length);
+
+    final winnerGame = RouletteCalculator<Game>(widget.weights).pickWinner();
+    print("[WEIGHTS] : ${winnerGame.name} won with weight: ${widget.weights[winnerGame]}");
+    final winnerIndex = widget.games.indexOf(winnerGame);
 
     final currentItem = _controller.selectedItem;
     final int currentModIndex = currentItem % widget.games.length;

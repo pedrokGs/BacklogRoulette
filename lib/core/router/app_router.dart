@@ -4,26 +4,29 @@ import 'package:backlog_roulette/features/auth/auth_di.dart';
 import 'package:backlog_roulette/features/auth/viewmodels/states/auth_state.dart';
 import 'package:backlog_roulette/features/auth/views/screens/signin_screen.dart';
 import 'package:backlog_roulette/features/auth/views/screens/signup_screen.dart';
+import 'package:backlog_roulette/features/games/views/screens/game_details_screen.dart';
 import 'package:backlog_roulette/features/home/views/screens/home_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-final routerProvider = Provider<GoRouter>((ref){
+final routerProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authNotifierProvider);
 
   return GoRouter(
     initialLocation: RoutePaths.signin,
-    redirect: (context, state){
-      final bool loggedIn = authState.maybeMap(authenticated: (_) => true, orElse: () => false);
+    redirect: (context, state) {
+      final bool loggedIn = authState.maybeMap(
+        authenticated: (_) => true,
+        orElse: () => false,
+      );
       final bool loggingIn = state.matchedLocation == RoutePaths.signin;
 
-      if(!loggedIn && !loggingIn) return RoutePaths.signin;
+      if (!loggedIn && !loggingIn) return RoutePaths.signin;
 
-
-      if(loggedIn && loggingIn) return RoutePaths.home;
+      if (loggedIn && loggingIn) return RoutePaths.home;
 
       return null;
-      },
+    },
     routes: [
       GoRoute(
         name: RouteNames.signin,
@@ -39,6 +42,14 @@ final routerProvider = Provider<GoRouter>((ref){
         name: RouteNames.home,
         path: RoutePaths.home,
         builder: (context, state) => HomeScreen(),
+      ),
+      GoRoute(
+        name: RouteNames.gameDetails,
+        path: RoutePaths.gameDetails,
+        builder: (context, state) {
+          final id = state.pathParameters['gameId']!;
+          return GameDetailsScreen(gameId: id);
+        },
       ),
     ],
   );

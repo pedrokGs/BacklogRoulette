@@ -15,11 +15,13 @@ part 'roulette_state.freezed.dart';
 ///
 /// Loading -> Carregando durante algum processo assíncrono
 @freezed
-class RouletteState with _$RouletteScreenState {
-
+class RouletteState with _$RouletteState {
   factory RouletteState.idle() = _Idle;
 
-  factory RouletteState.spinning({required List<Game> selectedGames}) = _Spinning;
+  factory RouletteState.spinning({
+    required List<Game> selectedGames,
+    required Map<Game, double> weights,
+  }) = _Spinning;
 
   factory RouletteState.error({required String message}) = _Error;
 

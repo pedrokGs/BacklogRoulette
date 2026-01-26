@@ -1,9 +1,11 @@
+import 'package:backlog_roulette/core/router/route_names.dart';
 import 'package:backlog_roulette/features/games/games_di.dart';
 import 'package:backlog_roulette/features/games/viewmodels/library/library_state.dart';
 import 'package:backlog_roulette/features/games/views/widgets/game_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -15,19 +17,28 @@ class LibraryScreen extends ConsumerStatefulWidget {
 }
 
 class _LibraryScreenState extends ConsumerState<LibraryScreen> {
-  final TextEditingController _searchController = TextEditingController(text: '76561199000388093'); // Valor padrão para teste
+  // Controller para o ID da Steam (busca na API)
+  final TextEditingController _steamIdController = TextEditingController(
+    text: '76561199000388093',
+  ); // Valor teste
+
+  String _gameFilter = '';
 
   @override
   void dispose() {
-    _searchController.dispose();
+    _steamIdController.dispose();
     super.dispose();
   }
 
-  void _performSearch() {
-    if (_searchController.text.isNotEmpty) {
+  void _performSteamImport() {
+    if (_steamIdController.text.isNotEmpty) {
       FocusScope.of(context).unfocus();
-      ref.read(libraryNotifier.notifier)
-          .searchGamesForUserId(_searchController.text);
+      setState(() {
+        _gameFilter = '';
+      });
+      ref
+          .read(libraryNotifier.notifier)
+          .searchGamesForUserId(_steamIdController.text);
     }
   }
 
@@ -52,111 +63,194 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Sua Biblioteca",
-                      style: GoogleFonts.poppins(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      "O que vamos jogar hoje?",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey[600],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-                child: _buildSearchBar(),
-              ),
-            ),
-
-            SliverToBoxAdapter(child: SizedBox(height: 24)),
-
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8),
-                child: Row(
-                  children: [
-                    Icon(Icons.history, color: Theme.of(context).primaryColor),
-                    SizedBox(width: 8),
-                    Text(
-                      "Recentes",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            SliverFillRemaining(
-              hasScrollBody: false,
-              child: state.when(
-                initial: () => _buildEmptyState("Digite um Steam ID para começar"),
-                loading: () => _buildLoadingState(),
-                error: (_) => _buildEmptyState("Não foi possível carregar os jogos"),
-                loaded: (games) {
-                  if (games.isEmpty) return _buildEmptyState("Nenhum jogo encontrado.");
-
-                  return Column(
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: SafeArea(
+          child: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24.0,
+                    vertical: 32.0,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 20),
-                      CarouselSlider(
-                        items: games.map((game) {
-                          return Container(
-                            margin: EdgeInsets.symmetric(horizontal: 5),
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withValues(alpha: 0.2),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 5),
-                                )
-                              ],
-                            ),
-                            child: GameCard(game: game),
-                          );
-                        }).toList(),
-                        options: CarouselOptions(
-                          height: 300,
-                          viewportFraction: 0.65,
-                          enlargeCenterPage: true,
-                          enlargeFactor: 0.25,
-                          enableInfiniteScroll: false,
-                          scrollPhysics: BouncingScrollPhysics(),
+                      Text(
+                        "Sua Biblioteca",
+                        style: GoogleFonts.poppins(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
+                      Text(
+                        "O que vamos jogar hoje?",
+                        style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                      ),
                     ],
-                  );
-                },
+                  ),
+                ),
               ),
-            ),
-          ],
+
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0,
+                    vertical: 10,
+                  ),
+                  child: _buildSteamImportBar(),
+                ),
+              ),
+
+              SliverToBoxAdapter(child: SizedBox(height: 24)),
+
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: state.when(
+                  initial: () =>
+                      _buildEmptyState("Digite um Steam ID para começar"),
+                  loading: () => _buildLoadingState(),
+                  error: (_) =>
+                      _buildEmptyState("Não foi possível carregar os jogos"),
+                  loaded: (games) {
+                    final filteredGames = games.where((game) {
+                      return game.name.toLowerCase().contains(
+                        _gameFilter.toLowerCase(),
+                      );
+                    }).toList();
+
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(Icons.sports_esports,
+                                      color: Theme.of(context).colorScheme.primary),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    "Meus Jogos (${filteredGames.length})",
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 16),
+                              _buildGameSearch(),
+                            ],
+                          ),
+                        ),
+
+                        const SizedBox(height: 20),
+
+                        if (filteredGames.isEmpty)
+                          Expanded(
+                            child: _buildEmptyState("Nenhum jogo encontrado."),
+                          )
+                        else
+                          CarouselSlider.builder(
+                            itemCount: filteredGames.length,
+                            itemBuilder: (context, index, realIndex) {
+                              final game = filteredGames[index];
+
+                              return AnimatedSwitcher(
+                                duration: const Duration(milliseconds: 400),
+                                transitionBuilder: (Widget child, Animation<double> animation) {
+                                  return FadeTransition(
+                                    opacity: animation,
+                                    child: ScaleTransition(scale: animation, child: child),
+                                  );
+                                },
+                                child: Container(
+                                  key: ValueKey(game.id),
+                                  margin: const EdgeInsets.symmetric(horizontal: 5),
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withValues(alpha: 0.2),
+                                        blurRadius: 10,
+                                        offset: const Offset(0, 5),
+                                      ),
+                                    ],
+                                  ),
+                                  child: GameCard(
+                                    game: game,
+                                    onTap: () => context.pushNamed(
+                                      RouteNames.gameDetails,
+                                      pathParameters: {"gameId": game.id},
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                            options: CarouselOptions(
+                              height: 350,
+                              viewportFraction: 0.65,
+                              autoPlay: _gameFilter.isEmpty,
+                              enlargeCenterPage: true,
+                              enableInfiniteScroll: false,
+                              enlargeFactor: 0.25,
+                              scrollPhysics: const BouncingScrollPhysics(),
+                            ),
+                          ),
+                      ],
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildSearchBar() {
+  Widget _buildGameSearch() {
+    return Container(
+      height: 50,
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor.withValues(alpha: 0.5),
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(
+          color: Theme.of(context).dividerColor.withValues(alpha: 0.1),
+        ),
+      ),
+      child: TextField(
+        onChanged: (value) {
+          setState(() {
+            _gameFilter = value;
+          });
+        },
+        style: TextStyle(fontSize: 14),
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          hintText: "Filtrar por nome...",
+          hintStyle: TextStyle(color: Colors.grey[500], fontSize: 14),
+          prefixIcon: Icon(
+            Icons.filter_list,
+            size: 20,
+            color: Colors.grey[400],
+          ),
+          suffixIcon: _gameFilter.isNotEmpty
+              ? IconButton(
+                  icon: Icon(Icons.close, size: 18),
+                  onPressed: () => setState(() {
+                    _gameFilter = '';
+                  }),
+                )
+              : null,
+          border: InputBorder.none,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSteamImportBar() {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Container(
@@ -176,31 +270,40 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
       child: Row(
         children: [
           const SizedBox(width: 12),
-          Icon(Icons.search, color: Colors.grey[400]),
+          Icon(
+            Icons.cloud_download_outlined,
+            color: Colors.grey[400],
+          ), // Mudei ícone para diferenciar
           const SizedBox(width: 12),
           Expanded(
             child: TextField(
-              controller: _searchController,
+              controller: _steamIdController,
               style: TextStyle(fontWeight: FontWeight.w500),
               decoration: InputDecoration(
-                hintText: "Steam ID...",
+                hintText: "Importar Steam ID...",
+                labelText: "Steam ID",
+                floatingLabelBehavior: FloatingLabelBehavior.always,
                 hintStyle: TextStyle(color: Colors.grey[400]),
                 border: InputBorder.none,
                 isDense: true,
               ),
-              onSubmitted: (_) => _performSearch(),
+              onSubmitted: (_) => _performSteamImport(),
             ),
           ),
           const SizedBox(width: 6),
           Container(
             margin: EdgeInsets.symmetric(vertical: 8),
             decoration: BoxDecoration(
+              color: colorScheme.primaryContainer, // Destaque para o botão
               borderRadius: BorderRadius.circular(14),
             ),
             child: IconButton(
-              icon: Icon(Icons.arrow_forward, color: colorScheme.onPrimary),
-              onPressed: _performSearch,
-              tooltip: "Pesquisar",
+              icon: Icon(
+                Icons.arrow_forward,
+                color: colorScheme.onPrimaryContainer,
+              ),
+              onPressed: _performSteamImport,
+              tooltip: "Importar",
             ),
           ),
         ],
@@ -224,7 +327,11 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.videogame_asset_off_outlined, size: 64, color: Colors.grey),
+            Icon(
+              Icons.videogame_asset_off_outlined,
+              size: 64,
+              color: Colors.grey.withValues(alpha: 0.5),
+            ),
             SizedBox(height: 16),
             Text(
               message,

@@ -12,7 +12,7 @@ part of 'roulette_state.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$RouletteScreenState {
+mixin _$RouletteState {
 
 
 
@@ -29,20 +29,20 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'RouletteScreenState()';
+  return 'RouletteState()';
 }
 
 
 }
 
 /// @nodoc
-class $RouletteScreenStateCopyWith<$Res>  {
-$RouletteScreenStateCopyWith(RouletteState _, $Res Function(RouletteState) __);
+class $RouletteStateCopyWith<$Res>  {
+$RouletteStateCopyWith(RouletteState _, $Res Function(RouletteState) __);
 }
 
 
 /// Adds pattern-matching-related methods to [RouletteState].
-extension RouletteScreenStatePatterns on RouletteState {
+extension RouletteStatePatterns on RouletteState {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -128,11 +128,11 @@ return loading(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  idle,TResult Function( List<Game> selectedGames)?  spinning,TResult Function( String message)?  error,TResult Function()?  loading,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  idle,TResult Function( List<Game> selectedGames,  Map<Game, double> weights)?  spinning,TResult Function( String message)?  error,TResult Function()?  loading,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Idle() when idle != null:
 return idle();case _Spinning() when spinning != null:
-return spinning(_that.selectedGames);case _Error() when error != null:
+return spinning(_that.selectedGames,_that.weights);case _Error() when error != null:
 return error(_that.message);case _Loading() when loading != null:
 return loading();case _:
   return orElse();
@@ -152,11 +152,11 @@ return loading();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  idle,required TResult Function( List<Game> selectedGames)  spinning,required TResult Function( String message)  error,required TResult Function()  loading,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  idle,required TResult Function( List<Game> selectedGames,  Map<Game, double> weights)  spinning,required TResult Function( String message)  error,required TResult Function()  loading,}) {final _that = this;
 switch (_that) {
 case _Idle():
 return idle();case _Spinning():
-return spinning(_that.selectedGames);case _Error():
+return spinning(_that.selectedGames,_that.weights);case _Error():
 return error(_that.message);case _Loading():
 return loading();case _:
   throw StateError('Unexpected subclass');
@@ -175,11 +175,11 @@ return loading();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  idle,TResult? Function( List<Game> selectedGames)?  spinning,TResult? Function( String message)?  error,TResult? Function()?  loading,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  idle,TResult? Function( List<Game> selectedGames,  Map<Game, double> weights)?  spinning,TResult? Function( String message)?  error,TResult? Function()?  loading,}) {final _that = this;
 switch (_that) {
 case _Idle() when idle != null:
 return idle();case _Spinning() when spinning != null:
-return spinning(_that.selectedGames);case _Error() when error != null:
+return spinning(_that.selectedGames,_that.weights);case _Error() when error != null:
 return error(_that.message);case _Loading() when loading != null:
 return loading();case _:
   return null;
@@ -212,7 +212,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'RouletteScreenState.idle()';
+  return 'RouletteState.idle()';
 }
 
 
@@ -225,7 +225,7 @@ String toString() {
 
 
 class _Spinning implements RouletteState {
-   _Spinning({required final  List<Game> selectedGames}): _selectedGames = selectedGames;
+   _Spinning({required final  List<Game> selectedGames, required final  Map<Game, double> weights}): _selectedGames = selectedGames,_weights = weights;
   
 
  final  List<Game> _selectedGames;
@@ -235,8 +235,15 @@ class _Spinning implements RouletteState {
   return EqualUnmodifiableListView(_selectedGames);
 }
 
+ final  Map<Game, double> _weights;
+ Map<Game, double> get weights {
+  if (_weights is EqualUnmodifiableMapView) return _weights;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_weights);
+}
 
-/// Create a copy of RouletteScreenState
+
+/// Create a copy of RouletteState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -246,27 +253,27 @@ _$SpinningCopyWith<_Spinning> get copyWith => __$SpinningCopyWithImpl<_Spinning>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Spinning&&const DeepCollectionEquality().equals(other._selectedGames, _selectedGames));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Spinning&&const DeepCollectionEquality().equals(other._selectedGames, _selectedGames)&&const DeepCollectionEquality().equals(other._weights, _weights));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_selectedGames));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_selectedGames),const DeepCollectionEquality().hash(_weights));
 
 @override
 String toString() {
-  return 'RouletteScreenState.spinning(selectedGames: $selectedGames)';
+  return 'RouletteState.spinning(selectedGames: $selectedGames, weights: $weights)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$SpinningCopyWith<$Res> implements $RouletteScreenStateCopyWith<$Res> {
+abstract mixin class _$SpinningCopyWith<$Res> implements $RouletteStateCopyWith<$Res> {
   factory _$SpinningCopyWith(_Spinning value, $Res Function(_Spinning) _then) = __$SpinningCopyWithImpl;
 @useResult
 $Res call({
- List<Game> selectedGames
+ List<Game> selectedGames, Map<Game, double> weights
 });
 
 
@@ -281,12 +288,13 @@ class __$SpinningCopyWithImpl<$Res>
   final _Spinning _self;
   final $Res Function(_Spinning) _then;
 
-/// Create a copy of RouletteScreenState
+/// Create a copy of RouletteState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? selectedGames = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? selectedGames = null,Object? weights = null,}) {
   return _then(_Spinning(
 selectedGames: null == selectedGames ? _self._selectedGames : selectedGames // ignore: cast_nullable_to_non_nullable
-as List<Game>,
+as List<Game>,weights: null == weights ? _self._weights : weights // ignore: cast_nullable_to_non_nullable
+as Map<Game, double>,
   ));
 }
 
@@ -302,7 +310,7 @@ class _Error implements RouletteState {
 
  final  String message;
 
-/// Create a copy of RouletteScreenState
+/// Create a copy of RouletteState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -321,14 +329,14 @@ int get hashCode => Object.hash(runtimeType,message);
 
 @override
 String toString() {
-  return 'RouletteScreenState.error(message: $message)';
+  return 'RouletteState.error(message: $message)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$ErrorCopyWith<$Res> implements $RouletteScreenStateCopyWith<$Res> {
+abstract mixin class _$ErrorCopyWith<$Res> implements $RouletteStateCopyWith<$Res> {
   factory _$ErrorCopyWith(_Error value, $Res Function(_Error) _then) = __$ErrorCopyWithImpl;
 @useResult
 $Res call({
@@ -347,7 +355,7 @@ class __$ErrorCopyWithImpl<$Res>
   final _Error _self;
   final $Res Function(_Error) _then;
 
-/// Create a copy of RouletteScreenState
+/// Create a copy of RouletteState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
   return _then(_Error(
@@ -382,7 +390,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'RouletteScreenState.loading()';
+  return 'RouletteState.loading()';
 }
 
 

@@ -1,33 +1,38 @@
+import 'package:backlog_roulette/features/games/models/enums/game_mood_enum.dart';
+import 'package:backlog_roulette/features/games/models/utils/roulette_weight_logic.dart';
 import 'package:backlog_roulette/features/games/viewmodels/roulette/roulette_state.dart';
 import 'package:backlog_roulette/features/games/models/models/game/game.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class RouletteNotifier extends Notifier<RouletteState> {
-  final Set<String> _selectedIds = {};
+  GameMood _currentMood = GameMood.tranquilo;
 
   @override
   RouletteState build() {
     return RouletteState.idle();
   }
 
-  Set<String> get selectedIds => _selectedIds;
+  GameMood get currentMood => _currentMood;
 
-  void toggleSelection(String gameId) {
-    if (_selectedIds.contains(gameId)) {
-      _selectedIds.remove(gameId);
-    } else {
-      _selectedIds.add(gameId);
-    }
+  void updateMood(GameMood mood) {
+    _currentMood = mood;
     ref.notifyListeners();
   }
-
   void prepareRoulette(List<Game> allGames) {
-    final selectedGames = allGames.where((g) => _selectedIds.contains(g.steamAppId)).toList();
+    state = RouletteState.loading();
 
-    if (selectedGames.isNotEmpty) {
-      state = RouletteState.spinning(selectedGames: selectedGames);
+    final weights = RouletteWeightLogic.buildWeights(
+      allGames: allGames,
+      selectedMood: _currentMood,
+    );
+
+    if (weights.isNotEmpty) {
+      state = RouletteState.spinning(
+        selectedGames: weights.keys.toList(),
+        weights: weights,
+      );
     } else {
-      state = RouletteState.error(message: "Nenhum jogo selecionado!");
+      state = RouletteState.error(message: "Sua biblioteca está vazia!");
     }
   }
 }

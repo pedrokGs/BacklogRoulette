@@ -2,7 +2,7 @@ import 'package:backlog_roulette/features/games/games_di.dart';
 import 'package:backlog_roulette/features/games/models/models/game/game.dart';
 import 'package:backlog_roulette/features/games/viewmodels/library/library_state.dart';
 import 'package:backlog_roulette/features/games/viewmodels/roulette/roulette_state.dart';
-import 'package:backlog_roulette/features/games/views/widgets/game_checkbox.dart';
+import 'package:backlog_roulette/features/games/views/widgets/mood_selector_tab.dart';
 import 'package:backlog_roulette/features/games/views/widgets/roulette_wheel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -35,7 +35,7 @@ class _RouletteScreenState extends ConsumerState<RouletteScreen> {
               }
             },
             tabs: [
-              Tab(icon: Icon(Icons.list), text: "Selecionar"),
+              Tab(icon: Icon(Icons.list), text: "Mood"),
               Tab(icon: Icon(Icons.casino), text: "Roleta"),
             ],
           ),
@@ -46,18 +46,13 @@ class _RouletteScreenState extends ConsumerState<RouletteScreen> {
               initial: () => Center(child: Text("Carregue sua biblioteca primeiro")),
               loading: () => Center(child: CircularProgressIndicator()),
               error: (msg) => Center(child: Text(msg)),
-              loaded: (games) => ListView.builder(
-                itemCount: games.length,
-                itemBuilder: (context, index) {
-                  return GameCheckbox(game: games[index]);
-                },
-              ),
+              loaded: (games) => MoodSelectorTab(),
             ),
 
             Consumer(
               builder: (context, ref, child) {
                 return ref.watch(rouletteNotifier).maybeWhen(
-                  spinning: (selectedGames) => RouletteWheel(games: selectedGames),
+                  spinning: (selectedGames, weights) => RouletteWheel(games: selectedGames, weights: weights),
 
                   error: (msg) => Center(child: Text(msg)),
                   orElse: () => Center(

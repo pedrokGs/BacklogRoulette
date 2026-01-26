@@ -12,13 +12,18 @@ class GameCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: 1.0,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(12),
-        child: Card(
-          margin: EdgeInsets.zero,
+      child: Card(
+        margin: EdgeInsets.zero,
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        child: InkWell(
+          onTap: onTap,
           child: Stack(
             children: [
-              _buildImage(game.coverUrl, backupUrl: game.igdbCoverUrl),
+              Hero(
+                tag: 'game-cover-${game.id}',
+                child: _buildImage(game.coverUrl, backupUrl: game.igdbCoverUrl),
+              ),
 
               Positioned.fill(
                 child: Container(
@@ -70,7 +75,8 @@ class GameCard extends StatelessWidget {
             imageUrl: backupUrl,
             fit: BoxFit.cover,
             placeholder: (context, url) => Container(color: Colors.grey[900]),
-            errorWidget: (context, url, error) => const Icon(Icons.videogame_asset),
+            errorWidget: (context, url, error) =>
+                const Icon(Icons.videogame_asset),
           );
         }
         return const Icon(Icons.videogame_asset);
