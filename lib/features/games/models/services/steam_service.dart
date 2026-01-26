@@ -1,15 +1,26 @@
 import 'dart:convert';
 
 import 'package:backlog_roulette/features/games/models/models/game/game.dart';
+import 'package:backlog_roulette/features/games/models/models/game_metadata/game_metadata.dart';
+import 'package:backlog_roulette/features/games/models/repositories/game_repository.dart';
 import 'package:http/http.dart' as http;
-
-class SteamGameService {
+/// Essa classe é responsável por efetuar chamadas à API da steam
+///
+/// O principal uso dessa classe é buscar informações relevantes ao usuário, tais como biblioteca, tempo de jogo, etc
+/// Essa classe não se responsabiliza por entregar informações absolutas de jogos, pelo contrário, ela retorna apenas
+/// informações referentes ao usuário, e nenhuma verdade absoluta sobre o jogo, isso é papel da mesclagem com os dados
+/// da IGDB por meio do [GameRepository].
+class SteamService {
   final String steamKey;
 
-  const SteamGameService({required this.steamKey});
+  const SteamService({required this.steamKey});
 
+  /// Retorna uma lista contendo Jogos [Game] do usuário por meio de seu ID Steam.
+  ///
+  /// O Retorno é dado por uma [List] de [Game] ordenado por tempo de jogo desde a última sessão (last_played)
+  /// A informação retornada sobre o jogo em si não é verídica, pois não contem metadados relevantes. Isso é papel da
+  /// [GameMetadata]
   Future<List<Game>> getUserGames(String steamId) async {
-    // Should return a List containing all Games the user has on steam library, ordered by time since last played
     final uri = Uri.parse(
       'https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=$steamKey&steamid=$steamId&format=json&include_appinfo=true&include_played_free_games=true',
     );
@@ -19,11 +30,12 @@ class SteamGameService {
       if (response.statusCode == 200) {
         final Map<String, dynamic> data = jsonDecode(response.body);
 
-        // Steam returns: { "response": { "game_count": X, "games": [...] } }
         final List? gamesJson = data['response']['games'];
 
         if (gamesJson == null) return [];
 
+        // Retorno proibido para os seguintes termos
+        // Isso é necessário pois esse jogos podem não possuir ID cadastrado na IGDB, por serem betas, alphas, etc
         final forbiddenTerms = [
           'beta', 'alpha', 'prologue', 'test server',
           'demo', 'trial', 'playtest', 'dedicated server'
@@ -37,7 +49,6 @@ class SteamGameService {
         })
             .toList();
 
-        // Order: recently played games first
         gameList.sort((a, b) => b.timeLastPlayed.compareTo(a.timeLastPlayed));
 
         return gameList;

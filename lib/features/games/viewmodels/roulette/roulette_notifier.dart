@@ -1,13 +1,13 @@
-import 'package:backlog_roulette/features/games/viewmodels/roulette/roulette_screen_state.dart';
+import 'package:backlog_roulette/features/games/viewmodels/roulette/roulette_state.dart';
 import 'package:backlog_roulette/features/games/models/models/game/game.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RouletteStateNotifier extends Notifier<RouletteScreenState> {
+class RouletteNotifier extends Notifier<RouletteState> {
   final Set<String> _selectedIds = {};
 
   @override
-  RouletteScreenState build() {
-    return RouletteScreenState.idle();
+  RouletteState build() {
+    return RouletteState.idle();
   }
 
   Set<String> get selectedIds => _selectedIds;
@@ -25,9 +25,9 @@ class RouletteStateNotifier extends Notifier<RouletteScreenState> {
     final selectedGames = allGames.where((g) => _selectedIds.contains(g.steamAppId)).toList();
 
     if (selectedGames.isNotEmpty) {
-      state = RouletteScreenState.spinning(selectedGames: selectedGames);
+      state = RouletteState.spinning(selectedGames: selectedGames);
     } else {
-      state = RouletteScreenState.error(message: "Nenhum jogo selecionado!");
+      state = RouletteState.error(message: "Nenhum jogo selecionado!");
     }
   }
 }

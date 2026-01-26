@@ -1,10 +1,9 @@
-import 'package:backlog_roulette/features/games/viewmodels/library/library_screen_state.dart';
+import 'package:backlog_roulette/features/games/games_di.dart';
+import 'package:backlog_roulette/features/games/viewmodels/library/library_state.dart';
 import 'package:backlog_roulette/features/games/views/widgets/game_card.dart';
-import 'package:backlog_roulette/di/notifiers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
@@ -27,16 +26,16 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
   void _performSearch() {
     if (_searchController.text.isNotEmpty) {
       FocusScope.of(context).unfocus();
-      ref.read(libraryStateNotifier.notifier)
+      ref.read(libraryNotifier.notifier)
           .searchGamesForUserId(_searchController.text);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(libraryStateNotifier);
+    final state = ref.watch(libraryNotifier);
 
-    ref.listen<LibraryScreenState>(libraryStateNotifier, (previous, next) {
+    ref.listen<LibraryState>(libraryNotifier, (previous, next) {
       next.maybeWhen(
         error: (message) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -128,7 +127,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
                             decoration: BoxDecoration(
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
+                                  color: Colors.black.withValues(alpha: 0.2),
                                   blurRadius: 10,
                                   offset: Offset(0, 5),
                                 )

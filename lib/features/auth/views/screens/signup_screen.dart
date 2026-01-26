@@ -1,6 +1,6 @@
 import 'package:backlog_roulette/core/router/route_names.dart';
 import 'package:backlog_roulette/core/themes/app_colors.dart';
-import 'package:backlog_roulette/di/notifiers.dart';
+import 'package:backlog_roulette/features/auth/auth_di.dart';
 import 'package:backlog_roulette/features/auth/viewmodels/states/auth_state.dart';
 import 'package:backlog_roulette/features/auth/views/utils/validators.dart';
 import 'package:backlog_roulette/features/auth/views/widgets/auth_button.dart';

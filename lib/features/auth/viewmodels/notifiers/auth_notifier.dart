@@ -1,4 +1,4 @@
-import 'package:backlog_roulette/di/service_providers.dart';
+import 'package:backlog_roulette/features/auth/auth_di.dart';
 import 'package:backlog_roulette/features/auth/viewmodels/states/auth_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

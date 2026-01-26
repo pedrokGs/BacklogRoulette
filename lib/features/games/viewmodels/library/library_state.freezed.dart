@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'library_screen_state.dart';
+part of 'library_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -20,7 +20,7 @@ mixin _$LibraryScreenState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LibraryScreenState);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LibraryState);
 }
 
 
@@ -37,12 +37,12 @@ String toString() {
 
 /// @nodoc
 class $LibraryScreenStateCopyWith<$Res>  {
-$LibraryScreenStateCopyWith(LibraryScreenState _, $Res Function(LibraryScreenState) __);
+$LibraryScreenStateCopyWith(LibraryState _, $Res Function(LibraryState) __);
 }
 
 
-/// Adds pattern-matching-related methods to [LibraryScreenState].
-extension LibraryScreenStatePatterns on LibraryScreenState {
+/// Adds pattern-matching-related methods to [LibraryState].
+extension LibraryScreenStatePatterns on LibraryState {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -192,7 +192,7 @@ return loading();case _:
 /// @nodoc
 
 
-class _Initial implements LibraryScreenState {
+class _Initial implements LibraryState {
    _Initial();
   
 
@@ -224,7 +224,7 @@ String toString() {
 /// @nodoc
 
 
-class _Loaded implements LibraryScreenState {
+class _Loaded implements LibraryState {
    _Loaded({required final  List<Game> games}): _games = games;
   
 
@@ -296,7 +296,7 @@ as List<Game>,
 /// @nodoc
 
 
-class _Error implements LibraryScreenState {
+class _Error implements LibraryState {
    _Error({required this.message});
   
 
@@ -362,7 +362,7 @@ as String,
 /// @nodoc
 
 
-class _Loading implements LibraryScreenState {
+class _Loading implements LibraryState {
    _Loading();
   
 

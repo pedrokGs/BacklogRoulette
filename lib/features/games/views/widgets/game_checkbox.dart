@@ -1,4 +1,4 @@
-import 'package:backlog_roulette/di/notifiers.dart';
+import 'package:backlog_roulette/features/games/games_di.dart';
 import 'package:backlog_roulette/features/games/models/models/game/game.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +11,7 @@ class GameCheckbox extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isSelected = ref
-        .watch(rouletteStateNotifier.notifier)
+        .watch(rouletteNotifier.notifier)
         .selectedIds
         .contains(game.steamAppId);
 
@@ -19,7 +19,7 @@ class GameCheckbox extends ConsumerWidget {
       onTap: () {
 
         ref
-            .read(rouletteStateNotifier.notifier)
+            .read(rouletteNotifier.notifier)
             .toggleSelection(game.steamAppId!);
       },
       contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -40,7 +40,7 @@ class GameCheckbox extends ConsumerWidget {
         activeColor: Theme.of(context).colorScheme.primary,
         onChanged: (val) {
           ref
-              .read(rouletteStateNotifier.notifier)
+              .read(rouletteNotifier.notifier)
               .toggleSelection(game.steamAppId!);
         },
       ),

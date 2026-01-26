@@ -1,7 +1,7 @@
-import 'package:backlog_roulette/di/notifiers.dart';
+import 'package:backlog_roulette/features/games/games_di.dart';
 import 'package:backlog_roulette/features/games/models/models/game/game.dart';
-import 'package:backlog_roulette/features/games/viewmodels/library/library_screen_state.dart';
-import 'package:backlog_roulette/features/games/viewmodels/roulette/roulette_screen_state.dart';
+import 'package:backlog_roulette/features/games/viewmodels/library/library_state.dart';
+import 'package:backlog_roulette/features/games/viewmodels/roulette/roulette_state.dart';
 import 'package:backlog_roulette/features/games/views/widgets/game_checkbox.dart';
 import 'package:backlog_roulette/features/games/views/widgets/roulette_wheel.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ class _RouletteScreenState extends ConsumerState<RouletteScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final libraryState = ref.watch(libraryStateNotifier);
+    final libraryState = ref.watch(libraryNotifier);
 
     return DefaultTabController(
       length: 2,
@@ -31,7 +31,7 @@ class _RouletteScreenState extends ConsumerState<RouletteScreen> {
                   loaded: (games) => games,
                   orElse: () => [],
                 );
-                ref.read(rouletteStateNotifier.notifier).prepareRoulette(allGames);
+                ref.read(rouletteNotifier.notifier).prepareRoulette(allGames);
               }
             },
             tabs: [
@@ -56,7 +56,7 @@ class _RouletteScreenState extends ConsumerState<RouletteScreen> {
 
             Consumer(
               builder: (context, ref, child) {
-                return ref.watch(rouletteStateNotifier).maybeWhen(
+                return ref.watch(rouletteNotifier).maybeWhen(
                   spinning: (selectedGames) => RouletteWheel(games: selectedGames),
 
                   error: (msg) => Center(child: Text(msg)),

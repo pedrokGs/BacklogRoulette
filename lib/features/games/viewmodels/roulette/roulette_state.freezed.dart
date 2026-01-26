@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'roulette_screen_state.dart';
+part of 'roulette_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -20,7 +20,7 @@ mixin _$RouletteScreenState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RouletteScreenState);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RouletteState);
 }
 
 
@@ -37,12 +37,12 @@ String toString() {
 
 /// @nodoc
 class $RouletteScreenStateCopyWith<$Res>  {
-$RouletteScreenStateCopyWith(RouletteScreenState _, $Res Function(RouletteScreenState) __);
+$RouletteScreenStateCopyWith(RouletteState _, $Res Function(RouletteState) __);
 }
 
 
-/// Adds pattern-matching-related methods to [RouletteScreenState].
-extension RouletteScreenStatePatterns on RouletteScreenState {
+/// Adds pattern-matching-related methods to [RouletteState].
+extension RouletteScreenStatePatterns on RouletteState {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -192,7 +192,7 @@ return loading();case _:
 /// @nodoc
 
 
-class _Idle implements RouletteScreenState {
+class _Idle implements RouletteState {
    _Idle();
   
 
@@ -224,7 +224,7 @@ String toString() {
 /// @nodoc
 
 
-class _Spinning implements RouletteScreenState {
+class _Spinning implements RouletteState {
    _Spinning({required final  List<Game> selectedGames}): _selectedGames = selectedGames;
   
 
@@ -296,7 +296,7 @@ as List<Game>,
 /// @nodoc
 
 
-class _Error implements RouletteScreenState {
+class _Error implements RouletteState {
    _Error({required this.message});
   
 
@@ -362,7 +362,7 @@ as String,
 /// @nodoc
 
 
-class _Loading implements RouletteScreenState {
+class _Loading implements RouletteState {
    _Loading();
   
 

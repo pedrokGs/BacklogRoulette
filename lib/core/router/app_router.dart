@@ -1,6 +1,6 @@
 import 'package:backlog_roulette/core/router/route_names.dart';
 import 'package:backlog_roulette/core/router/route_paths.dart';
-import 'package:backlog_roulette/di/notifiers.dart';
+import 'package:backlog_roulette/features/auth/auth_di.dart';
 import 'package:backlog_roulette/features/auth/viewmodels/states/auth_state.dart';
 import 'package:backlog_roulette/features/auth/views/screens/signin_screen.dart';
 import 'package:backlog_roulette/features/auth/views/screens/signup_screen.dart';

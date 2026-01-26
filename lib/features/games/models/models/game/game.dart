@@ -4,6 +4,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'game.freezed.dart';
 part 'game.g.dart';
 
+// Class jogo
+// Representa o jogo que o usuário possui, logo, possui suas informações específicas.
+//
 @freezed
 abstract class Game with _$Game {
   const factory Game({
@@ -23,16 +26,16 @@ abstract class Game with _$Game {
   factory Game.fromJson(Map<String, dynamic> json) => _$GameFromJson(json);
 
   factory Game.fromSteam(Map<String, dynamic> json) {
-    final appId = json['appid'].toString() ?? '';
+    final appId = json['appid'].toString();
     final playtime = json['playtime_forever'] ?? 0;
     return Game(
       id: 'steam_$appId',
       name: json['name'] ?? '',
-      coverUrl: 'https://cdn.akamai.steamstatic.com/steam/apps/$appId/header.jpg' ?? '',
+      coverUrl: 'https://cdn.akamai.steamstatic.com/steam/apps/$appId/header.jpg',
       igdbCoverUrl: '',
       genres: [],
       gameState: playtime > 0 ? GameState.playing : GameState.notPlayed,
-      steamAppId: appId ?? '',
+      steamAppId: appId,
       igdbId: '',
       playtime: playtime,
       timeLastPlayed: json['rtime_last_played'] ?? 0,
