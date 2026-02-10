@@ -4,10 +4,11 @@ import 'package:backlog_roulette/features/games/models/models/game/game.dart';
 import 'package:backlog_roulette/features/games/models/repositories/game_repository.dart';
 import 'package:backlog_roulette/features/games/models/services/igdb_service.dart';
 import 'package:backlog_roulette/features/games/models/services/steam_service.dart';
-import 'package:backlog_roulette/features/games/viewmodels/library/library_state.dart';
 import 'package:backlog_roulette/features/games/viewmodels/library/library_notifier.dart';
+import 'package:backlog_roulette/features/games/viewmodels/library/library_state.dart';
 import 'package:backlog_roulette/features/games/viewmodels/roulette/roulette_notifier.dart';
 import 'package:backlog_roulette/features/games/viewmodels/roulette/roulette_state.dart';
+import 'package:backlog_roulette/features/games/viewmodels/settings/include_free_games_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // Injeção de Dependência para jogos.
 
@@ -39,6 +40,8 @@ final libraryNotifier = NotifierProvider<LibraryNotifier, LibraryState>(
 final rouletteNotifier = NotifierProvider<RouletteNotifier, RouletteState>(
   RouletteNotifier.new,
 );
+
+final includeFreeGamesNotifier = NotifierProvider(IncludeFreeGamesNotifier.new);
 
 // Selectors
 /// Pega todos os jogos atualmente selecionados na roleta

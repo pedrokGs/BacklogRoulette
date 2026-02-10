@@ -105,7 +105,9 @@ class _SigninScreenState extends ConsumerState<SigninScreen> {
                 child: !isLoading
                     ? Text(
                         "Sign in",
-                        style: Theme.of(context).textTheme.bodyLarge,
+                        style: Theme.of(
+                          context,
+                        ).textTheme.bodyLarge?.copyWith(color: Colors.white),
                       )
                     : LoadingAnimationWidget.progressiveDots(
                         color: AppColors.darkTextPrimary,
@@ -118,7 +120,9 @@ class _SigninScreenState extends ConsumerState<SigninScreen> {
                   text: TextSpan(
                     text: "Don't have an account? ",
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: AppColors.darkTextPrimary,
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withValues(alpha: 0.8),
                     ),
                     children: const <TextSpan>[
                       TextSpan(

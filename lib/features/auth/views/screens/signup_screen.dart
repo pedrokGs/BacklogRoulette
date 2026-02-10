@@ -143,7 +143,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                   text: TextSpan(
                     text: "Already have an account? ",
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: AppColors.darkTextPrimary,
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withValues(alpha: 0.8),
                     ),
                     children: const <TextSpan>[
                       TextSpan(

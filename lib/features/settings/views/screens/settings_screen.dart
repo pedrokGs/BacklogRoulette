@@ -1,5 +1,7 @@
-import 'package:backlog_roulette/features/home/views/widgets/signout_tile.dart';
-import 'package:backlog_roulette/features/home/views/widgets/switch_theme_tile.dart';
+import 'package:backlog_roulette/features/settings/views/widgets/include_free_tile.dart';
+import 'package:backlog_roulette/features/settings/views/widgets/settings_tab.dart';
+import 'package:backlog_roulette/features/settings/views/widgets/signout_tile.dart';
+import 'package:backlog_roulette/features/settings/views/widgets/switch_theme_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,7 +31,16 @@ class SettingsScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 8),
               Expanded(
-                child: ListView(children: [SwitchThemeTile(), SignoutTile()]),
+                child: ListView(
+                  children: [
+                    SettingsTab(label: "Appearance"),
+                    SwitchThemeTile(),
+                    SettingsTab(label: "Library"),
+                    IncludeFreeTile(),
+                    SettingsTab(label: 'My Account'),
+                    SignoutTile(),
+                  ],
+                ),
               ),
             ],
           ),

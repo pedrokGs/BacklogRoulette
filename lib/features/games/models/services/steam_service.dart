@@ -4,6 +4,7 @@ import 'package:backlog_roulette/features/games/models/models/game/game.dart';
 import 'package:backlog_roulette/features/games/models/models/game_metadata/game_metadata.dart';
 import 'package:backlog_roulette/features/games/models/repositories/game_repository.dart';
 import 'package:http/http.dart' as http;
+
 /// Essa classe é responsável por efetuar chamadas à API da steam
 ///
 /// O principal uso dessa classe é buscar informações relevantes ao usuário, tais como biblioteca, tempo de jogo, etc
@@ -20,9 +21,12 @@ class SteamService {
   /// O Retorno é dado por uma [List] de [Game] ordenado por tempo de jogo desde a última sessão (last_played)
   /// A informação retornada sobre o jogo em si não é verídica, pois não contem metadados relevantes. Isso é papel da
   /// [GameMetadata]
-  Future<List<Game>> getUserGames(String steamId) async {
+  Future<List<Game>> getUserGames(
+    String steamId, {
+    bool shouldIncludeFree = false,
+  }) async {
     final uri = Uri.parse(
-      'https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=$steamKey&steamid=$steamId&format=json&include_appinfo=true&include_played_free_games=true',
+      'https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=$steamKey&steamid=$steamId&format=json&include_appinfo=true&include_played_free_games=$shouldIncludeFree',
     );
     try {
       final response = await http.get(uri);
@@ -37,17 +41,20 @@ class SteamService {
         // Retorno proibido para os seguintes termos
         // Isso é necessário pois esse jogos podem não possuir ID cadastrado na IGDB, por serem betas, alphas, etc
         final forbiddenTerms = [
-          'beta', 'alpha', 'prologue', 'test server',
-          'demo', 'trial', 'playtest', 'dedicated server'
+          'beta',
+          'alpha',
+          'prologue',
+          'test server',
+          'demo',
+          'trial',
+          'playtest',
+          'dedicated server',
         ];
 
-        final gameList = gamesJson
-            .map((e) => Game.fromSteam(e))
-            .where((game) {
+        final gameList = gamesJson.map((e) => Game.fromSteam(e)).where((game) {
           final nameLower = game.name.toLowerCase();
           return !forbiddenTerms.any((term) => nameLower.contains(term));
-        })
-            .toList();
+        }).toList();
 
         gameList.sort((a, b) => b.timeLastPlayed.compareTo(a.timeLastPlayed));
 

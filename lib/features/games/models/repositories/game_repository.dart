@@ -30,10 +30,16 @@ class GameRepository {
   /// Também é responsável por verificar se o jogo já existe no cache (firestore), e carregar de lá a fim de evitar chamadas
   /// desnecessárias ao [IGDBService], caso o jogo não exista no cache, ela salva ele no mesmo, garantindo que todos os próximos
   /// usuários que tenham aquele jogo tenham um acesso mais rápido.
-  Future<List<Game>> getEnrichedGames(String steamUserId) async {
+  Future<List<Game>> getEnrichedGames(
+    String steamUserId, {
+    bool shouldIncludeFree = false,
+  }) async {
     List<Game> steamGames = [];
     try {
-      steamGames = await steamService.getUserGames(steamUserId);
+      steamGames = await steamService.getUserGames(
+        steamUserId,
+        shouldIncludeFree: shouldIncludeFree,
+      );
     } catch (e) {
       rethrow;
     }

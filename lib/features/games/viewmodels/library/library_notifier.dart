@@ -17,7 +17,10 @@ class LibraryNotifier extends Notifier<LibraryState> {
     try {
       final games = await ref
           .read(gameRepositoryProvider)
-          .getEnrichedGames(userId);
+          .getEnrichedGames(
+            userId,
+            shouldIncludeFree: ref.read(includeFreeGamesNotifier),
+          );
       state = LibraryState.loaded(games: games);
     } catch (e) {
       state = LibraryState.error(message: e.toString());
