@@ -1,7 +1,7 @@
 import 'package:backlog_roulette/core/router/route_names.dart';
 import 'package:backlog_roulette/core/router/route_paths.dart';
+import 'package:backlog_roulette/core/router/router_refresher.dart';
 import 'package:backlog_roulette/features/auth/auth_di.dart';
-import 'package:backlog_roulette/features/auth/viewmodels/states/auth_state.dart';
 import 'package:backlog_roulette/features/auth/views/screens/signin_screen.dart';
 import 'package:backlog_roulette/features/auth/views/screens/signup_screen.dart';
 import 'package:backlog_roulette/features/games/views/screens/game_details_screen.dart';
@@ -10,16 +10,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
-  final authState = ref.watch(authNotifierProvider);
+  final authNotifier = ref.watch(authNotifierProvider.notifier);
 
   return GoRouter(
     initialLocation: RoutePaths.signin,
+    refreshListenable: RouterRefresher(authNotifier.build()),
     redirect: (context, state) {
-      final bool loggedIn = authState.maybeMap(
-        authenticated: (_) => true,
-        orElse: () => false,
-      );
-      final bool loggingIn = state.matchedLocation == RoutePaths.signin;
+      final authState = ref.read(authNotifierProvider);
+
+      if (authState.isLoading || authState.hasError) return null;
+
+      final bool loggedIn = authState.valueOrNull != null;
+
+      final bool loggingIn =
+          state.matchedLocation == RoutePaths.signin ||
+          state.matchedLocation == RoutePaths.signup;
 
       if (!loggedIn && !loggingIn) return RoutePaths.signin;
 

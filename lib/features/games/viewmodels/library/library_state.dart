@@ -15,7 +15,7 @@ part 'library_state.freezed.dart';
 ///
 /// Loading -> Carregando durante algum processo assíncrono
 @freezed
-class LibraryState with _$LibraryScreenState {
+sealed class LibraryState with _$LibraryState {
   factory LibraryState.initial() = _Initial;
 
   factory LibraryState.loaded({required List<Game> games}) = _Loaded;
@@ -23,5 +23,4 @@ class LibraryState with _$LibraryScreenState {
   factory LibraryState.error({required String message}) = _Error;
 
   factory LibraryState.loading() = _Loading;
-
 }

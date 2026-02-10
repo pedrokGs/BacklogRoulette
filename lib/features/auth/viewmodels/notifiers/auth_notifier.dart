@@ -1,33 +1,25 @@
 import 'package:backlog_roulette/features/auth/auth_di.dart';
-import 'package:backlog_roulette/features/auth/viewmodels/states/auth_state.dart';
+import 'package:backlog_roulette/features/auth/models/models/app_user.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AuthNotifier extends Notifier<AuthState> {
+class AuthNotifier extends StreamNotifier<AppUser?> {
   @override
-  AuthState build() {
-    final user = ref.read(authServiceProvider).currentUser;
-
-    if(user == null){
-      return AuthState.unauthenticated();
-    }
-
-    return AuthState.authenticated();
+  Stream<AppUser?> build() {
+    return ref.watch(authServiceProvider).authStateChanges;
   }
 
   Future<void> signInWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
-    state = AuthState.loading();
-    try {
-      await ref.read(authServiceProvider).signInWithEmailAndPassword(email: email, password: password);
-      // Artificial delay
-      Future.delayed(const Duration(milliseconds: 1500), () {
-        state = AuthState.authenticated();
-      },);
-    } catch (e) {
-      state = AuthState.error(message: e.toString());
-    }
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      await ref
+          .read(authServiceProvider)
+          .signInWithEmailAndPassword(email: email, password: password);
+
+      return ref.read(authServiceProvider).currentUser;
+    });
   }
 
   Future<void> signUpWithEmailAndPassword({
@@ -35,26 +27,22 @@ class AuthNotifier extends Notifier<AuthState> {
     required String password,
     required String username,
   }) async {
-    state = AuthState.loading();
-    try {
-      // Artificial delay
-      await ref.read(authServiceProvider).signUpWithEmailAndPassword(email: email, password: password, username: username);
-      Future.delayed(const Duration(milliseconds: 1500), () {
-        state = AuthState.authenticated();
-      },);
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      await ref
+          .read(authServiceProvider)
+          .signUpWithEmailAndPassword(
+            email: email,
+            password: password,
+            username: username,
+          );
 
-    } catch (e) {
-      state = AuthState.error(message: e.toString());
-    }
+      return ref.read(authServiceProvider).currentUser;
+    });
   }
 
-  Future<void> signOut() async{
-    state = AuthState.loading();
-    try{
-      await ref.read(authServiceProvider).signOut();
-      state = AuthState.authenticated();
-    } catch(e){
-      state = AuthState.error(message: e.toString());
-    }
+  Future<void> signOut() async {
+    state = const AsyncValue.loading();
+    await ref.read(authServiceProvider).signOut();
   }
 }

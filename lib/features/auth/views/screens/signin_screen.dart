@@ -1,7 +1,7 @@
 import 'package:backlog_roulette/core/router/route_names.dart';
 import 'package:backlog_roulette/core/themes/app_colors.dart';
 import 'package:backlog_roulette/features/auth/auth_di.dart';
-import 'package:backlog_roulette/features/auth/viewmodels/states/auth_state.dart';
+import 'package:backlog_roulette/features/auth/models/models/app_user.dart';
 import 'package:backlog_roulette/features/auth/views/utils/validators.dart';
 import 'package:backlog_roulette/features/auth/views/widgets/auth_button.dart';
 import 'package:backlog_roulette/features/auth/views/widgets/custom_text_form_field.dart';
@@ -51,20 +51,16 @@ class _SigninScreenState extends ConsumerState<SigninScreen> {
 
     final isLoading = state.maybeMap(loading: (_) => true, orElse: () => false);
 
-    ref.listen<AuthState>(authNotifierProvider, (previous, next) {
-      next.maybeWhen(
-        error: (message) {
+    ref.listen<AsyncValue<AppUser?>>(authNotifierProvider, (previous, next) {
+      next.whenOrNull(
+        error: (error, stackTrace) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(message),
-              backgroundColor: AppColors.accentError,
+              content: Text(error.toString()),
+              backgroundColor: Colors.red,
             ),
           );
         },
-        authenticated: () {
-          context.goNamed(RouteNames.home);
-        },
-        orElse: () {},
       );
     });
 

@@ -29,17 +29,16 @@ class _MoodSelectorTabState extends ConsumerState<MoodSelectorTab> {
     final currentMood = notifier.currentMood;
 
     return Container(
-      color: const Color(0xFF0F1115),
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.only(left: 8.0, bottom: 16.0),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0, bottom: 16.0),
             child: Text(
               "COMO VOCÊ ESTÁ SE SENTINDO?",
               style: TextStyle(
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.onSurface,
                 fontFamily: 'Russo One',
                 fontSize: 18,
                 letterSpacing: 1.2,
@@ -56,24 +55,36 @@ class _MoodSelectorTabState extends ConsumerState<MoodSelectorTab> {
               ),
               itemCount: GameMood.values.length,
               itemBuilder: (context, index) {
+                final theme = Theme.of(context);
+                final colorScheme = theme.colorScheme;
+
                 final mood = GameMood.values[index];
                 final isSelected = mood == currentMood;
 
                 return GestureDetector(
-                  onTap: () {
-                    ref.read(rouletteNotifier.notifier).updateMood(mood);
-                  },
+                  onTap: () =>
+                      ref.read(rouletteNotifier.notifier).updateMood(mood),
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 200),
                     decoration: BoxDecoration(
                       color: isSelected
-                          ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.15)
-                          : Colors.white.withValues(alpha: 0.05),
+                          ? colorScheme.primaryContainer.withValues(alpha: 0.6)
+                          : colorScheme.surfaceContainerHigh,
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(
-                        color: isSelected ? Theme.of(context).colorScheme.primary : Colors.white10,
+                        color: isSelected
+                            ? colorScheme.primary
+                            : colorScheme.outlineVariant.withValues(alpha: 0.5),
                         width: isSelected ? 2 : 1,
                       ),
+                      boxShadow: [
+                        if (isSelected)
+                          BoxShadow(
+                            color: colorScheme.primary.withValues(alpha: 0.1),
+                            blurRadius: 8,
+                            offset: const Offset(0, 4),
+                          ),
+                      ],
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -81,21 +92,32 @@ class _MoodSelectorTabState extends ConsumerState<MoodSelectorTab> {
                         Icon(
                           _moodIcons[mood],
                           size: 32,
-                          color: isSelected ? Theme.of(context).colorScheme.primary : Colors.white38,
+                          color: isSelected
+                              ? colorScheme.primary
+                              : colorScheme.onSurfaceVariant,
                         ),
                         const SizedBox(height: 8),
                         Text(
                           mood.name.toUpperCase(),
-                          style: TextStyle(
-                            color: isSelected ? Colors.white : Colors.white70,
-                            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                          style: theme.textTheme.labelLarge?.copyWith(
+                            color: isSelected
+                                ? colorScheme.onPrimaryContainer
+                                : colorScheme.onSurface,
+                            fontWeight: isSelected
+                                ? FontWeight.bold
+                                : FontWeight.w500,
+                            letterSpacing: 1.2,
                           ),
                         ),
                         Text(
                           _getMoodSubtitle(mood),
-                          style: TextStyle(
-                            color: isSelected ? Colors.white54 : Colors.white24,
-                            fontSize: 10,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: isSelected
+                                ? colorScheme.onPrimaryContainer.withValues(
+                                    alpha: 0.7,
+                                  )
+                                : colorScheme.onSurfaceVariant,
+                            fontSize: 12,
                           ),
                         ),
                       ],
@@ -112,12 +134,18 @@ class _MoodSelectorTabState extends ConsumerState<MoodSelectorTab> {
 
   String _getMoodSubtitle(GameMood mood) {
     switch (mood) {
-      case GameMood.tranquilo: return "Relax e paz";
-      case GameMood.eletrizante: return "Adrenalina pura";
-      case GameMood.cerebral: return "Pense e vença";
-      case GameMood.imersivo: return "Outro mundo";
-      case GameMood.tenso: return "Cuidado...";
-      case GameMood.competitivo: return "Glória eterna";
+      case GameMood.tranquilo:
+        return "Relax e paz";
+      case GameMood.eletrizante:
+        return "Adrenalina pura";
+      case GameMood.cerebral:
+        return "Pense e vença";
+      case GameMood.imersivo:
+        return "Outro mundo";
+      case GameMood.tenso:
+        return "Cuidado...";
+      case GameMood.competitivo:
+        return "Glória eterna";
     }
   }
 }

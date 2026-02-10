@@ -1,5 +1,7 @@
 import 'package:backlog_roulette/features/auth/models/exceptions/auth_exceptions.dart';
-import 'package:backlog_roulette/features/auth/viewmodels/states/auth_state.dart';
+import 'package:backlog_roulette/features/auth/models/extensions/firebase_mapper.dart';
+import 'package:backlog_roulette/features/auth/models/models/app_user.dart';
+import 'package:backlog_roulette/features/auth/viewmodels/notifiers/auth_notifier.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 /// Essa classe é responsável por gerenciar a autenticação do sistema, incluindo: sign up, sign out e sign in.
@@ -9,8 +11,13 @@ class AuthService {
   final FirebaseAuth firebaseAuth;
   const AuthService({required this.firebaseAuth});
 
-  /// Retorna user do firebase, temporário, futuramente teremos a própria classe User
-  User? get currentUser => firebaseAuth.currentUser;
+  Stream<AppUser?> get authStateChanges {
+    return firebaseAuth.authStateChanges().map(
+      (firebaseUser) => firebaseUser?.toDomain(),
+    );
+  }
+
+  AppUser? get currentUser => (firebaseAuth.currentUser?.toDomain());
 
   /// Tenta efetuar sign in com [String] email e [String] password.
   ///
@@ -57,10 +64,15 @@ class AuthService {
     required String username,
   }) async {
     try {
-      await firebaseAuth.createUserWithEmailAndPassword(
+      final credential = await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+
+      if (credential.user != null) {
+        await credential.user!.updateDisplayName(username);
+        await credential.user!.reload();
+      }
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'email-already-in-use':

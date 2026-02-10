@@ -13,7 +13,7 @@ class AppColors {
 
   static const Color lightBackground = Color(0xFFF7F7F8);
   static const Color lightSurface = Color(0xFFFFFFFF);
-  static const Color lightOverlay = Color(0xFFEFEFF1);
+  static const Color lightOverlay = Color(0xFFE7E7E7);
   static const Color lightTextPrimary = Color(0xFF0E0E10);
   static const Color lightTextSecondary = Color(0xFF53535F);
 
@@ -45,6 +45,7 @@ class AppColors {
         onSurface: darkTextPrimary,
         surface: darkBackground,
         surfaceContainer: darkSurface,
+        surfaceContainerHigh: darkOverlay,
         onErrorContainer: darkOverlay,
         onSecondaryContainer: darkSurface,
       );
@@ -59,6 +60,7 @@ class AppColors {
         onSurface: lightTextPrimary,
         surface: lightBackground,
         surfaceContainer: lightSurface,
+        surfaceContainerHigh: lightOverlay,
         onErrorContainer: lightOverlay,
         onSecondaryContainer: lightSurface,
       );
