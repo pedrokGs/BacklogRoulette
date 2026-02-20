@@ -101,6 +101,7 @@ class GameRepository {
 
       enrichedGames.add(
         game.copyWith(
+          summary: metadata?.summary ?? "",
           genres: metadata?.genres ?? [],
           igdbCoverUrl: metadata?.coverUrl != null
               ? igdbService.getHighResImageUrl(metadata!.coverUrl!)

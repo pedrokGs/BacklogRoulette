@@ -16,21 +16,22 @@ class RouletteWeightLogic {
       // Lógica de Mood Refinada (Match Density)
       if (selectedMood != null) {
         final allowedGenres = moodToGenres[selectedMood] ?? {};
-
-        // Converte os gêneros do jogo para Set para otimizar a busca
         final gameGenres = game.genres.toSet();
-
-        // Conta quantas tags coincidem entre o jogo e o mood
         final matches = gameGenres.intersection(allowedGenres).length;
 
         if (matches > 0) {
           // Ex: Se bater 3 tags (Casual, Relaxing, Farming), ganha 30 pontos.
           // Se bater só 1 tag (ex: "Short" num jogo de terror), ganha só 10.
           // Isso faz Stardew Valley ganhar de Doom na categoria Tranquilo.
-          score += (matches * 10.0);
-
-          // Opcional: Um bônus extra só por ter entrado no mood
           score += 20.0;
+          if (matches >= 1) score += 15.0;
+          if (matches >= 2) score += 10.0;
+          if (matches > 2) {
+            score += (matches - 2) * 2.0;
+          }
+        } else {
+          // Opcional: Um bônus extra só por ter entrado no mood
+          score *= 0.3;
         }
       }
 

@@ -22,7 +22,7 @@ class GameCard extends StatelessWidget {
             children: [
               Hero(
                 tag: 'game-cover-${game.id}',
-                child: _buildImage(game.coverUrl, backupUrl: game.igdbCoverUrl),
+                child: _buildImage(game.igdbCoverUrl, backupUrl: game.coverUrl),
               ),
 
               Positioned.fill(

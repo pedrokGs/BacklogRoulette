@@ -1,5 +1,6 @@
 import 'package:backlog_roulette/core/themes/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class AuthButton extends StatelessWidget {
   final Widget child;
@@ -28,7 +29,10 @@ class AuthButton extends StatelessWidget {
         child: InkWell(
           splashColor: Colors.black.withValues(alpha: 0.2),
           highlightColor: Colors.black.withValues(alpha: 0.4),
-          onTap: onTap,
+          onTap: () {
+            HapticFeedback.lightImpact();
+            onTap();
+          },
 
           child: Center(child: child),
         ),

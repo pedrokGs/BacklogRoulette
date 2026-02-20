@@ -1,0 +1,101 @@
+{
+  "@@locale": "en",
+  "bottom_navigation_bar_library_label": "Library",
+  "bottom_navigation_bar_roulette_label": "Roulette",
+  "bottom_navigation_bar_settings_label": "Settings",
+
+  "library_screen_title": "Your Library",
+  "library_screen_subtitle": "What shall we play today?",
+  "library_screen_steam_id_import_hinttext": "Import Steam ID...",
+  "library_screen_steam_id_import_button_tooltip": "Import",
+  "library_screen_games_count_label": "My Games ({gameAmount})",
+  "@library_screen_games_count_label": {
+  "description": "Number of games in the library",
+    "placeholders": {
+      "gameAmount": {
+        "example": "42",
+        "type": "int",
+        "description": "Number of games"
+      }
+    }
+  },
+  "library_screen_search_hinttext": "Filter a game by name...",
+  "library_screen_no_games_found_label": "No games found.",
+  "library_screen_error_state_label": "It was not possible to load the games",
+  "library_screen_initial_state_label": "Type your Steam ID to get started",
+
+  "game_details_screen_playtime_label": "Played",
+  "game_details_screen_game_state_label": "Status",
+  "game_details_screen_source_label": "Source",
+  "game_details_screen_summary_label": "About the game",
+  "game_details_screen_back_button_tooltip": "Go back",
+  "game_details_screen_edit_status_button_label": "Update Status",
+  "game_details_screen_edit_status_button_tooltip": "Change the status of the game",
+
+  "settings_screen_title": "Settings",
+  "settings_screen_subtitle": "Adjust the system as you like",
+  "settings_screen_appearance_divider_label": "Appearance",
+  "settings_screen_library_divider_label": "Library",
+  "settings_screen_my_account_divider_label": "My Account",
+  "settings_screen_theme_mode_title": "Theme",
+  "settings_screen_theme_mode_subtitle_light": "Light mode",
+  "settings_screen_theme_mode_subtitle_dark": "Dark mode",
+  "settings_screen_library_should_include_free_games_title": "Include free games",
+  "settings_screen_library_should_include_free_games_subtitle": "Should free games be included in the search?",
+  "settings_screen_sign_out_button_label": "Sign out",
+  "settings_screen_sign_out_confirmation_title": "Sign out",
+  "settings_screen_sign_out_confirmation_message": "Are you sure you want to sign out? You will need to sign in again to access your data.",
+  "settings_screen_sign_out_confirmation_button_label": "Sign out",
+  "settings_screen_sign_out_confirmation_cancel_label": "Cancel",
+  "settings_Screen_language_tile": "Language",
+
+  "roulette_screen_mood_tab_title": "Mood",
+  "roulette_screen_roulette_tab_title": "Roulette",
+  "roulette_screen_initial_state_label": "Load your library first",
+  "roulette_screen_no_mood_state_label": "Select a mood on the previous tab and\n come back here!",
+
+  "mood_tab_screen_title": "Your Mood",
+  "mood_tab_screen_subtitle": "How are you feeling today?",
+
+  "mood_calm_title": "Calm",
+  "mood_calm_subtitle": "Calm and relaxed",
+  "mood_electric_title": "Electric",
+  "mood_electric_subtitle": "Pure adrenaline",
+  "mood_brainiac_title": "Brainiac",
+  "mood_brainiac_subtitle": "Think and win",
+  "mood_immersive_title": "Immersive",
+  "mood_immersive_subtitle": "In an other world",
+  "mood_tense_title": "Tense",
+  "mood_tense_subtitle": "Be careful... Be prepared...",
+  "mood_competitive_title": "Competitive",
+  "mood_competitive_subtitle": "Eternal glory!",
+
+  "roulette_winner_card_accept_challenge_button_label": "Accept challenge",
+  "roulette_winner_card_decline_challenge_button_label": "Spin again",
+  "roulette_winner_card_ready_to_play_text": "Ready to play?",
+  "roulette_winner_card_title": "CHOSEN GAME",
+  "roulette_spin_button_label": "SEAL YOUR FATE",
+  "roulette_empty_library_text": "Your library is empty",
+
+  "sign_in_screen_title": "Sign in.",
+  "sign_in_screen_email_hinttext": "Email",
+  "sign_in_screen_password_hinttext": "Password",
+  "sign_in_screen_sign_in_button_label": "Sign in",
+  "sign_in_screen_no_account_label": "Don't have an account?",
+
+  "sign_up_screen_title": "Sign up.",
+  "sign_up_screen_username_hinttext": "Username",
+  "sign_up_screen_email_hinttext": "Email",
+  "sign_up_screen_password_hinttext": "Password",
+  "sign_up_screen_confirm_password_hinttext": "Confirm your Password",
+  "sign_up_screen_sign_up_button_label": "Sign up",
+  "sign_up_screen_already_have_account_label": "Already have an account?",
+
+  "validators_passwords_do_not_match": "The passwords don't match!",
+  "validators_the_fields_are_invalid": "The fields are invalid",
+  "validators_email_is_invalid": "Email is invalid!",
+  "validators_username_cannot_be_empty": "Username cannot be empty!",
+  "validators_password_is_not_strong_enough": "Password is not strong enough!",
+  "validators_email_cannot_be_empty": "Email cannot be empty!",
+  "validators_password_cannot_be_empty": "Password cannot be empty!"
+}

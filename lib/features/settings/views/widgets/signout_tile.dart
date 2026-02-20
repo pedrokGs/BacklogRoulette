@@ -1,3 +1,4 @@
+import 'package:backlog_roulette/core/l10n/app_localizations.dart';
 import 'package:backlog_roulette/features/auth/auth_di.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,7 +13,7 @@ class SignoutTile extends ConsumerWidget {
     return ListTile(
       leading: const Icon(Icons.logout, color: Colors.redAccent),
       title: Text(
-        'Sign out',
+        AppLocalizations.of(context)!.settings_screen_sign_out_button_label,
         style: Theme.of(
           context,
         ).textTheme.bodyLarge?.copyWith(color: Colors.redAccent),
@@ -36,14 +37,18 @@ class SignoutTile extends ConsumerWidget {
           ),
           backgroundColor: colorScheme.surface,
           title: Text(
-            "Log Out",
+            AppLocalizations.of(
+              context,
+            )!.settings_screen_sign_out_confirmation_title,
             style: textTheme.headlineSmall?.copyWith(
               fontWeight: FontWeight.bold,
               color: colorScheme.onSurface,
             ),
           ),
           content: Text(
-            "Are you sure you want to log out? You will need to sign in again to access your data.",
+            AppLocalizations.of(
+              context,
+            )!.settings_screen_sign_out_confirmation_message,
             style: textTheme.bodyMedium?.copyWith(
               color: colorScheme.onSurfaceVariant,
             ),
@@ -52,7 +57,9 @@ class SignoutTile extends ConsumerWidget {
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
               child: Text(
-                "Cancel",
+                AppLocalizations.of(
+                  context,
+                )!.settings_screen_sign_out_confirmation_cancel_label,
                 style: TextStyle(color: colorScheme.primary),
               ),
             ),
@@ -70,7 +77,11 @@ class SignoutTile extends ConsumerWidget {
                 ref.read(authNotifierProvider.notifier).signOut();
                 context.pop();
               },
-              child: const Text("Log Out"),
+              child: Text(
+                AppLocalizations.of(
+                  context,
+                )!.settings_screen_sign_out_confirmation_button_label,
+              ),
             ),
           ],
         );

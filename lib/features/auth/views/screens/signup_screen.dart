@@ -1,3 +1,4 @@
+import 'package:backlog_roulette/core/l10n/app_localizations.dart';
 import 'package:backlog_roulette/core/router/route_names.dart';
 import 'package:backlog_roulette/core/themes/app_colors.dart';
 import 'package:backlog_roulette/features/auth/auth_di.dart';
@@ -36,9 +37,13 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
 
   Future<void> signUp() async {
     if (!_formKey.currentState!.validate()) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("The fields are invalid")));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            AppLocalizations.of(context)!.validators_the_fields_are_invalid,
+          ),
+        ),
+      );
       return;
     }
     await ref
@@ -79,42 +84,61 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Sign Up.',
+                AppLocalizations.of(context)!.sign_up_screen_title,
                 style: Theme.of(
                   context,
                 ).textTheme.displayLarge?.copyWith(fontSize: 52),
               ),
               const SizedBox(height: 24),
               CustomTextFormField(
-                hintText: 'Username',
+                hintText: AppLocalizations.of(
+                  context,
+                )!.sign_up_screen_username_hinttext,
                 textEditingController: usernameController,
                 icon: Icon(Icons.person),
-                validator: Validators.validateUsername,
+                validator: (value) => Validators.validateUsername(
+                  value,
+                  AppLocalizations.of(context)!,
+                ),
               ),
               const SizedBox(height: 12),
               CustomTextFormField(
-                hintText: 'Email',
+                hintText: AppLocalizations.of(
+                  context,
+                )!.sign_up_screen_email_hinttext,
                 textEditingController: emailController,
                 icon: Icon(Icons.email),
-                validator: Validators.validateEmail,
+                validator: (value) => Validators.validateEmail(
+                  value,
+                  AppLocalizations.of(context)!,
+                ),
               ),
               const SizedBox(height: 12),
               CustomTextFormField(
-                hintText: 'Password',
+                hintText: AppLocalizations.of(
+                  context,
+                )!.sign_up_screen_password_hinttext,
                 textEditingController: passwordController,
                 icon: Icon(Icons.password),
                 isPassword: true,
-                validator: Validators.validatePassword,
+                validator: (value) => Validators.validatePassword(
+                  value,
+                  AppLocalizations.of(context)!,
+                ),
               ),
               const SizedBox(height: 12),
               CustomTextFormField(
-                hintText: 'Confirm your Password',
+                hintText: AppLocalizations.of(
+                  context,
+                )!.sign_up_screen_confirm_password_hinttext,
                 textEditingController: confirmPasswordController,
                 icon: Icon(Icons.password),
                 isPassword: true,
                 validator: (value) {
                   if (passwordController.text != value) {
-                    return "The passwords don't match!";
+                    return AppLocalizations.of(
+                      context,
+                    )!.validators_passwords_do_not_match;
                   }
                   return null;
                 },
@@ -129,7 +153,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                     : AppColors.primaryDarkPurple,
                 child: !isLoading
                     ? Text(
-                        "Sign up",
+                        AppLocalizations.of(
+                          context,
+                        )!.sign_up_screen_sign_up_button_label,
                         style: Theme.of(context).textTheme.bodyLarge,
                       )
                     : LoadingAnimationWidget.progressiveDots(
@@ -141,15 +167,18 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                 onPressed: () => context.goNamed(RouteNames.signin),
                 child: RichText(
                   text: TextSpan(
-                    text: "Already have an account? ",
+                    text:
+                        "${AppLocalizations.of(context)!.sign_up_screen_already_have_account_label} ",
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(
                         context,
                       ).colorScheme.onSurface.withValues(alpha: 0.8),
                     ),
-                    children: const <TextSpan>[
+                    children: <TextSpan>[
                       TextSpan(
-                        text: "Sign In.",
+                        text: AppLocalizations.of(
+                          context,
+                        )!.sign_in_screen_title,
                         style: TextStyle(color: AppColors.primaryPurple),
                       ),
                     ],

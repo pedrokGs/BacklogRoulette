@@ -1,11 +1,11 @@
 import 'package:backlog_roulette/features/games/models/enums/game_mood_enum.dart';
+import 'package:backlog_roulette/features/games/models/models/game/game.dart';
 import 'package:backlog_roulette/features/games/models/utils/roulette_weight_logic.dart';
 import 'package:backlog_roulette/features/games/viewmodels/roulette/roulette_state.dart';
-import 'package:backlog_roulette/features/games/models/models/game/game.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class RouletteNotifier extends Notifier<RouletteState> {
-  GameMood _currentMood = GameMood.tranquilo;
+  GameMood _currentMood = GameMood.calm;
 
   @override
   RouletteState build() {
@@ -18,6 +18,7 @@ class RouletteNotifier extends Notifier<RouletteState> {
     _currentMood = mood;
     ref.notifyListeners();
   }
+
   void prepareRoulette(List<Game> allGames) {
     state = RouletteState.loading();
 
@@ -32,7 +33,7 @@ class RouletteNotifier extends Notifier<RouletteState> {
         weights: weights,
       );
     } else {
-      state = RouletteState.error(message: "Sua biblioteca está vazia!");
+      state = RouletteState.error(message: "");
     }
   }
 }

@@ -1,0 +1,101 @@
+{
+  "@@locale": "zh",
+  "bottom_navigation_bar_library_label": "游戏库",
+  "bottom_navigation_bar_roulette_label": "轮盘",
+  "bottom_navigation_bar_settings_label": "设置",
+
+  "library_screen_title": "你的游戏库",
+  "library_screen_subtitle": "今天想玩什么？",
+  "library_screen_steam_id_import_hinttext": "导入 Steam ID...",
+  "library_screen_steam_id_import_button_tooltip": "导入",
+  "library_screen_games_count_label": "我的游戏 ({gameAmount})",
+  "@library_screen_games_count_label": {
+    "description": "游戏库中的游戏数量",
+    "placeholders": {
+      "gameAmount": {
+        "example": "42",
+        "type": "int",
+        "description": "游戏数量"
+      }
+    }
+  },
+  "library_screen_search_hinttext": "按名称搜索游戏...",
+  "library_screen_no_games_found_label": "未找到相关游戏。",
+  "library_screen_error_state_label": "无法加载游戏列表",
+  "library_screen_initial_state_label": "输入您的 Steam ID 以开始",
+
+  "game_details_screen_playtime_label": "累计游玩",
+  "game_details_screen_game_state_label": "状态",
+  "game_details_screen_source_label": "来源",
+  "game_details_screen_summary_label": "关于游戏",
+  "game_details_screen_back_button_tooltip": "返回",
+  "game_details_screen_edit_status_button_label": "更新状态",
+  "game_details_screen_edit_status_button_tooltip": "更改游戏状态",
+
+  "settings_screen_title": "设置",
+  "settings_screen_subtitle": "根据您的喜好调整系统",
+  "settings_screen_appearance_divider_label": "外观",
+  "settings_screen_library_divider_label": "游戏库",
+  "settings_screen_my_account_divider_label": "我的账号",
+  "settings_screen_theme_mode_title": "主题模式",
+  "settings_screen_theme_mode_subtitle_light": "浅色模式",
+  "settings_screen_theme_mode_subtitle_dark": "深色模式",
+  "settings_screen_library_should_include_free_games_title": "包含免费游戏",
+  "settings_screen_library_should_include_free_games_subtitle": "搜索结果中是否应包含免费游戏？",
+  "settings_screen_sign_out_button_label": "退出登录",
+  "settings_screen_sign_out_confirmation_title": "退出登录",
+  "settings_screen_sign_out_confirmation_message": "确定要退出登录吗？您需要重新登录才能访问您的数据。",
+  "settings_screen_sign_out_confirmation_button_label": "退出登录",
+  "settings_screen_sign_out_confirmation_cancel_label": "取消",
+  "settings_Screen_language_tile": "语言",
+
+  "roulette_screen_mood_tab_title": "心情",
+  "roulette_screen_roulette_tab_title": "轮盘",
+  "roulette_screen_initial_state_label": "请先加载您的游戏库",
+  "roulette_screen_no_mood_state_label": "请在上一标签页选择心情，\n然后回来这里！",
+
+  "mood_tab_screen_title": "你的心情",
+  "mood_tab_screen_subtitle": "你今天感觉如何？",
+
+  "mood_calm_title": "宁静",
+  "mood_calm_subtitle": "轻松惬意",
+  "mood_electric_title": "狂热",
+  "mood_electric_subtitle": "肾上腺素飙升",
+  "mood_brainiac_title": "智斗",
+  "mood_brainiac_subtitle": "运筹帷幄",
+  "mood_immersive_title": "沉浸",
+  "mood_immersive_subtitle": "身临其境",
+  "mood_tense_title": "紧张",
+  "mood_tense_subtitle": "步步为营... 做好准备...",
+  "mood_competitive_title": "竞技",
+  "mood_competitive_subtitle": "为了永恒的荣耀！",
+
+  "roulette_winner_card_accept_challenge_button_label": "接受挑战",
+  "roulette_winner_card_decline_challenge_button_label": "重新旋转",
+  "roulette_winner_card_ready_to_play_text": "准备好开玩了吗？",
+  "roulette_winner_card_title": "天选游戏",
+  "roulette_spin_button_label": "决定命运",
+  "roulette_empty_library_text": "你的游戏库空空如也",
+
+  "sign_in_screen_title": "登录",
+  "sign_in_screen_email_hinttext": "电子邮箱",
+  "sign_in_screen_password_hinttext": "密码",
+  "sign_in_screen_sign_in_button_label": "登录",
+  "sign_in_screen_no_account_label": "还没有账号？",
+
+  "sign_up_screen_title": "注册",
+  "sign_up_screen_username_hinttext": "用户名",
+  "sign_up_screen_email_hinttext": "电子邮箱",
+  "sign_up_screen_password_hinttext": "密码",
+  "sign_up_screen_confirm_password_hinttext": "确认密码",
+  "sign_up_screen_sign_up_button_label": "注册",
+  "sign_up_screen_already_have_account_label": "已有账号？",
+
+  "validators_passwords_do_not_match": "密码不匹配！",
+  "validators_the_fields_are_invalid": "字段无效",
+  "validators_email_is_invalid": "电子邮件格式不正确！",
+  "validators_username_cannot_be_empty": "用户名不能为空！",
+  "validators_password_is_not_strong_enough": "密码强度不够！",
+  "validators_email_cannot_be_empty": "电子邮件不能为空！",
+  "validators_password_cannot_be_empty": "密码不能为空！"
+}

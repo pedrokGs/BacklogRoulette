@@ -1,3 +1,4 @@
+import 'package:backlog_roulette/core/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,9 +17,18 @@ class SwitchThemeTile extends ConsumerWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
 
-      title: const Text("Theme", style: TextStyle(fontWeight: FontWeight.w600)),
+      title: Text(
+        AppLocalizations.of(context)!.settings_screen_theme_mode_title,
+        style: TextStyle(fontWeight: FontWeight.w600),
+      ),
       subtitle: Text(
-        isDark ? "Dark Mode" : "Light Mode",
+        isDark
+            ? AppLocalizations.of(
+                context,
+              )!.settings_screen_theme_mode_subtitle_dark
+            : AppLocalizations.of(
+                context,
+              )!.settings_screen_theme_mode_subtitle_light,
         style: TextStyle(color: isDark ? Colors.white70 : Colors.black54),
       ),
 

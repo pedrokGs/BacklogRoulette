@@ -1,3 +1,5 @@
+import 'package:backlog_roulette/core/l10n/app_localizations.dart';
+import 'package:backlog_roulette/core/l10n/providers.dart';
 import 'package:backlog_roulette/core/themes/app_theme.dart';
 import 'package:backlog_roulette/core/themes/providers.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -28,6 +30,9 @@ class BacklogRoulette extends ConsumerWidget {
       darkTheme: AppTheme.darkTheme,
       themeMode: ref.watch(themeNotifierProvider),
       routerConfig: ref.read(routerProvider),
+      locale: ref.watch(localeNotifierProvider),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 }

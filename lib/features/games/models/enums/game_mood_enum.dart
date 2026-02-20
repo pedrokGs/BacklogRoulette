@@ -1,8 +1,1 @@
-enum GameMood {
-  tranquilo,
-  eletrizante,
-  cerebral,
-  imersivo,
-  tenso,
-  competitivo,
-}
+enum GameMood { calm, electric, brainiac, immersive, tense, competitive }

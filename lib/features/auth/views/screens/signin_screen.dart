@@ -1,3 +1,4 @@
+import 'package:backlog_roulette/core/l10n/app_localizations.dart';
 import 'package:backlog_roulette/core/router/route_names.dart';
 import 'package:backlog_roulette/core/themes/app_colors.dart';
 import 'package:backlog_roulette/features/auth/auth_di.dart';
@@ -32,9 +33,13 @@ class _SigninScreenState extends ConsumerState<SigninScreen> {
 
   Future<void> signIn() async {
     if (!_formKey.currentState!.validate()) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("The fields are invalid")));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            AppLocalizations.of(context)!.validators_the_fields_are_invalid,
+          ),
+        ),
+      );
       return;
     }
     await ref
@@ -74,25 +79,35 @@ class _SigninScreenState extends ConsumerState<SigninScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Sign In.',
+                AppLocalizations.of(context)!.sign_in_screen_title,
                 style: Theme.of(
                   context,
                 ).textTheme.displayLarge?.copyWith(fontSize: 52),
               ),
               const SizedBox(height: 24),
               CustomTextFormField(
-                hintText: 'Email',
+                hintText: AppLocalizations.of(
+                  context,
+                )!.sign_in_screen_email_hinttext,
                 textEditingController: emailController,
                 icon: Icon(Icons.email),
-                validator: Validators.validateEmail,
+                validator: (value) => Validators.validateEmail(
+                  value,
+                  AppLocalizations.of(context)!,
+                ),
               ),
               const SizedBox(height: 12),
               CustomTextFormField(
-                hintText: 'Password',
+                hintText: AppLocalizations.of(
+                  context,
+                )!.sign_in_screen_password_hinttext,
                 textEditingController: passwordController,
                 icon: Icon(Icons.password),
                 isPassword: true,
-                validator: Validators.validatePassword,
+                validator: (value) => Validators.validatePassword(
+                  value,
+                  AppLocalizations.of(context)!,
+                ),
               ),
               const SizedBox(height: 24),
               AuthButton(
@@ -104,7 +119,9 @@ class _SigninScreenState extends ConsumerState<SigninScreen> {
                     : AppColors.primaryDarkPurple,
                 child: !isLoading
                     ? Text(
-                        "Sign in",
+                        AppLocalizations.of(
+                          context,
+                        )!.sign_in_screen_sign_in_button_label,
                         style: Theme.of(
                           context,
                         ).textTheme.bodyLarge?.copyWith(color: Colors.white),
@@ -118,15 +135,18 @@ class _SigninScreenState extends ConsumerState<SigninScreen> {
                 onPressed: () => context.goNamed(RouteNames.signup),
                 child: RichText(
                   text: TextSpan(
-                    text: "Don't have an account? ",
+                    text:
+                        "${AppLocalizations.of(context)!.sign_in_screen_no_account_label} ",
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(
                         context,
                       ).colorScheme.onSurface.withValues(alpha: 0.8),
                     ),
-                    children: const <TextSpan>[
+                    children: <TextSpan>[
                       TextSpan(
-                        text: "Sign Up.",
+                        text: AppLocalizations.of(
+                          context,
+                        )!.sign_up_screen_title,
                         style: TextStyle(color: AppColors.primaryPurple),
                       ),
                     ],

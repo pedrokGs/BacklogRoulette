@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+
 import 'package:backlog_roulette/features/games/models/models/game/game.dart';
 import 'package:backlog_roulette/features/games/models/models/game_metadata/game_metadata.dart';
 import 'package:backlog_roulette/features/games/models/repositories/game_repository.dart';
@@ -50,7 +51,8 @@ class IGDBService {
         '''
           fields 
             uid, 
-            game.name, 
+            game.name,
+            game.summary,
             game.cover.url, 
             game.genres.name, 
             game.artworks.url;
@@ -154,5 +156,3 @@ class IGDBService {
     return 'https:${url.replaceAll('t_thumb', 't_cover_big')}';
   }
 }
-
-

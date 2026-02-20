@@ -4,6 +4,7 @@ class GameMetadata {
   final String name;
   final String? coverUrl;
   final List<String> genres;
+  final String? summary;
 
   GameMetadata({
     this.igdbId,
@@ -11,6 +12,7 @@ class GameMetadata {
     required this.name,
     this.coverUrl,
     this.genres = const [],
+    this.summary,
   });
 
   factory GameMetadata.fromJson(Map<String, dynamic> json, {String? steamId}) {
@@ -36,6 +38,7 @@ class GameMetadata {
       name: json['name'] ?? 'Unknown Game',
       coverUrl: extractedUrl,
       genres: extractedGenres,
+      summary: json['summary'] ?? 'No description was found :\'(',
     );
   }
 
@@ -46,6 +49,7 @@ class GameMetadata {
       'name': name,
       'coverUrl': coverUrl,
       'genres': genres,
+      'summary': summary,
     };
   }
 }

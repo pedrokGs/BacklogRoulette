@@ -1,3 +1,4 @@
+import 'package:backlog_roulette/core/l10n/app_localizations.dart';
 import 'package:backlog_roulette/features/games/views/screens/library_screen.dart';
 import 'package:backlog_roulette/features/games/views/screens/roulette_screen.dart';
 import 'package:backlog_roulette/features/settings/views/screens/settings_screen.dart';
@@ -39,15 +40,24 @@ class _HomeScreenState extends State<HomeScreen> {
             curve: Curves.easeInOut,
           );
         },
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.videogame_asset_sharp),
-            label: "Library",
+            icon: const Icon(Icons.videogame_asset_sharp),
+            label: AppLocalizations.of(
+              context,
+            )!.bottom_navigation_bar_library_label,
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.loop), label: "Roulette"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.loop),
+            label: AppLocalizations.of(
+              context,
+            )!.bottom_navigation_bar_roulette_label,
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            label: "Settings",
+            label: AppLocalizations.of(
+              context,
+            )!.bottom_navigation_bar_settings_label,
           ),
         ],
       ),

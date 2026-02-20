@@ -1,10 +1,12 @@
 import 'dart:ui';
+
+import 'package:backlog_roulette/core/l10n/app_localizations.dart';
+import 'package:backlog_roulette/features/games/games_di.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:backlog_roulette/features/games/games_di.dart';
 
 class GameDetailsScreen extends ConsumerWidget {
   final String gameId;
@@ -65,6 +67,9 @@ class GameDetailsScreen extends ConsumerWidget {
                   child: Container(
                     color: Colors.black.withValues(alpha: 0.3),
                     child: IconButton(
+                      tooltip: AppLocalizations.of(
+                        context,
+                      )!.game_details_screen_back_button_tooltip,
                       icon: const Icon(
                         Icons.chevron_left,
                         color: Colors.white,
@@ -120,19 +125,25 @@ class GameDetailsScreen extends ConsumerWidget {
                           context,
                           Icons.timer_outlined,
                           "${(game.playtime / 60).toStringAsFixed(1)}h",
-                          "Jogado",
+                          AppLocalizations.of(
+                            context,
+                          )!.game_details_screen_playtime_label,
                         ),
                         _buildStatItem(
                           context,
                           Icons.videogame_asset_outlined,
                           game.gameState.name.toUpperCase(),
-                          "Status",
+                          AppLocalizations.of(
+                            context,
+                          )!.game_details_screen_game_state_label,
                         ),
                         _buildStatItem(
                           context,
                           Icons.calendar_today_outlined,
-                          game.steamAppId != null ? "Steam" : "Manual",
-                          "Fonte",
+                          game.steamAppId != null ? "Steam" : "???",
+                          AppLocalizations.of(
+                            context,
+                          )!.game_details_screen_source_label,
                         ),
                       ],
                     ),
@@ -140,7 +151,9 @@ class GameDetailsScreen extends ConsumerWidget {
                     const SizedBox(height: 40),
 
                     Text(
-                      "Sobre o jogo",
+                      AppLocalizations.of(
+                        context,
+                      )!.game_details_screen_summary_label,
                       style: GoogleFonts.poppins(
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
@@ -148,7 +161,7 @@ class GameDetailsScreen extends ConsumerWidget {
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      "Este jogo faz parte da sua coleção Steam. Você já dedicou bastante tempo explorando seu mundo. O que acha de terminar esse backlog hoje?",
+                      game.summary,
                       style: TextStyle(
                         fontSize: 15,
                         color: Colors.grey[400],
@@ -166,7 +179,14 @@ class GameDetailsScreen extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {},
-        label: const Text("Atualizar Status"),
+        tooltip: AppLocalizations.of(
+          context,
+        )!.game_details_screen_edit_status_button_tooltip,
+        label: Text(
+          AppLocalizations.of(
+            context,
+          )!.game_details_screen_edit_status_button_label,
+        ),
         icon: const Icon(Icons.edit_outlined),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),

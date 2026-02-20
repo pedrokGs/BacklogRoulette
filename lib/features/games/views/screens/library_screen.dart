@@ -1,10 +1,12 @@
+import 'package:backlog_roulette/core/l10n/app_localizations.dart';
 import 'package:backlog_roulette/core/router/route_names.dart';
 import 'package:backlog_roulette/features/games/games_di.dart';
 import 'package:backlog_roulette/features/games/viewmodels/library/library_state.dart';
 import 'package:backlog_roulette/features/games/views/widgets/game_card.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -31,6 +33,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
   }
 
   void _performSteamImport() {
+    HapticFeedback.lightImpact();
     if (_steamIdController.text.isNotEmpty) {
       FocusScope.of(context).unfocus();
       setState(() {
@@ -78,14 +81,14 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Sua Biblioteca",
+                        AppLocalizations.of(context)!.library_screen_title,
                         style: GoogleFonts.poppins(
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "O que vamos jogar hoje?",
+                        AppLocalizations.of(context)!.library_screen_subtitle,
                         style: TextStyle(fontSize: 16, color: Colors.grey[600]),
                       ),
                     ],
@@ -108,11 +111,17 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
               SliverFillRemaining(
                 hasScrollBody: false,
                 child: state.when(
-                  initial: () =>
-                      _buildEmptyState("Digite um Steam ID para começar"),
+                  initial: () => _buildEmptyState(
+                    AppLocalizations.of(
+                      context,
+                    )!.library_screen_initial_state_label,
+                  ),
                   loading: () => _buildLoadingState(),
-                  error: (_) =>
-                      _buildEmptyState("Não foi possível carregar os jogos"),
+                  error: (_) => _buildEmptyState(
+                    AppLocalizations.of(
+                      context,
+                    )!.library_screen_error_state_label,
+                  ),
                   loaded: (games) {
                     final filteredGames = games.where((game) {
                       return game.name.toLowerCase().contains(
@@ -128,11 +137,19 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
                             children: [
                               Row(
                                 children: [
-                                  Icon(Icons.sports_esports,
-                                      color: Theme.of(context).colorScheme.primary),
+                                  Icon(
+                                    Icons.sports_esports,
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.primary,
+                                  ),
                                   const SizedBox(width: 8),
                                   Text(
-                                    "Meus Jogos (${filteredGames.length})",
+                                    AppLocalizations.of(
+                                      context,
+                                    )!.library_screen_games_count_label(
+                                      filteredGames.length,
+                                    ),
                                     style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w600,
@@ -150,7 +167,11 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
 
                         if (filteredGames.isEmpty)
                           Expanded(
-                            child: _buildEmptyState("Nenhum jogo encontrado."),
+                            child: _buildEmptyState(
+                              AppLocalizations.of(
+                                context,
+                              )!.library_screen_no_games_found_label,
+                            ),
                           )
                         else
                           CarouselSlider.builder(
@@ -160,19 +181,30 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
 
                               return AnimatedSwitcher(
                                 duration: const Duration(milliseconds: 400),
-                                transitionBuilder: (Widget child, Animation<double> animation) {
-                                  return FadeTransition(
-                                    opacity: animation,
-                                    child: ScaleTransition(scale: animation, child: child),
-                                  );
-                                },
+                                transitionBuilder:
+                                    (
+                                      Widget child,
+                                      Animation<double> animation,
+                                    ) {
+                                      return FadeTransition(
+                                        opacity: animation,
+                                        child: ScaleTransition(
+                                          scale: animation,
+                                          child: child,
+                                        ),
+                                      );
+                                    },
                                 child: Container(
                                   key: ValueKey(game.id),
-                                  margin: const EdgeInsets.symmetric(horizontal: 5),
+                                  margin: const EdgeInsets.symmetric(
+                                    horizontal: 5,
+                                  ),
                                   decoration: BoxDecoration(
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.black.withValues(alpha: 0.2),
+                                        color: Colors.black.withValues(
+                                          alpha: 0.2,
+                                        ),
                                         blurRadius: 10,
                                         offset: const Offset(0, 5),
                                       ),
@@ -229,7 +261,9 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
         style: TextStyle(fontSize: 14),
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-          hintText: "Filtrar por nome...",
+          hintText: AppLocalizations.of(
+            context,
+          )!.library_screen_search_hinttext,
           hintStyle: TextStyle(color: Colors.grey[500], fontSize: 14),
           prefixIcon: Icon(
             Icons.filter_list,
@@ -270,17 +304,16 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
       child: Row(
         children: [
           const SizedBox(width: 12),
-          Icon(
-            Icons.cloud_download_outlined,
-            color: Colors.grey[400],
-          ), // Mudei ícone para diferenciar
+          Icon(Icons.cloud_download_outlined, color: Colors.grey[400]),
           const SizedBox(width: 12),
           Expanded(
             child: TextField(
               controller: _steamIdController,
               style: TextStyle(fontWeight: FontWeight.w500),
               decoration: InputDecoration(
-                hintText: "Importar Steam ID...",
+                hintText: AppLocalizations.of(
+                  context,
+                )!.library_screen_steam_id_import_hinttext,
                 labelText: "Steam ID",
                 floatingLabelBehavior: FloatingLabelBehavior.always,
                 hintStyle: TextStyle(color: Colors.grey[400]),
@@ -294,7 +327,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
           Container(
             margin: EdgeInsets.symmetric(vertical: 8),
             decoration: BoxDecoration(
-              color: colorScheme.primaryContainer, // Destaque para o botão
+              color: colorScheme.primaryContainer,
               borderRadius: BorderRadius.circular(14),
             ),
             child: IconButton(
@@ -303,7 +336,9 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
                 color: colorScheme.onPrimaryContainer,
               ),
               onPressed: _performSteamImport,
-              tooltip: "Importar",
+              tooltip: AppLocalizations.of(
+                context,
+              )!.library_screen_steam_id_import_button_tooltip,
             ),
           ),
         ],

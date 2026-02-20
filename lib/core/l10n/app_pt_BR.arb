@@ -1,0 +1,101 @@
+{
+  "@@locale": "pt_BR",
+  "bottom_navigation_bar_library_label": "Biblioteca",
+  "bottom_navigation_bar_roulette_label": "Roleta",
+  "bottom_navigation_bar_settings_label": "Configurações",
+
+  "library_screen_title": "Sua Biblioteca",
+  "library_screen_subtitle": "O que vamos jogar hoje?",
+  "library_screen_steam_id_import_hinttext": "Importar Steam ID...",
+  "library_screen_steam_id_import_button_tooltip": "Importar",
+  "library_screen_games_count_label": "Meus Jogos ({gameAmount})",
+  "@library_screen_games_count_label": {
+    "description": "Number of games in the library",
+    "placeholders": {
+      "gameAmount": {
+        "example": "42",
+        "type": "int",
+        "description": "Number of games"
+      }
+    }
+  },
+  "library_screen_search_hinttext": "Filtrar por nome...",
+  "library_screen_no_games_found_label": "Nenhum jogo encontrado.",
+  "library_screen_error_state_label": "Não foi possível carregar os jogos",
+  "library_screen_initial_state_label": "Digite um Steam ID para começar",
+
+  "game_details_screen_playtime_label": "Jogado",
+  "game_details_screen_game_state_label": "Status",
+  "game_details_screen_source_label": "Fonte",
+  "game_details_screen_summary_label": "Sobre o jogo",
+  "game_details_screen_back_button_tooltip": "Voltar",
+  "game_details_screen_edit_status_button_label": "Atualizar Status",
+  "game_details_screen_edit_status_button_tooltip": "Atualizar status do jogo",
+
+  "settings_screen_title": "Configurações",
+  "settings_screen_subtitle": "Ajuste o sistema como você quiser",
+  "settings_screen_appearance_divider_label": "Aparência",
+  "settings_screen_library_divider_label": "Biblioteca",
+  "settings_screen_my_account_divider_label": "Minha Conta",
+  "settings_screen_theme_mode_title": "Tema",
+  "settings_screen_theme_mode_subtitle_light": "Modo claro",
+  "settings_screen_theme_mode_subtitle_dark": "Modo escuro",
+  "settings_screen_library_should_include_free_games_title": "Incluir jogos gratuitos",
+  "settings_screen_library_should_include_free_games_subtitle": "Jogos gratuitos devem ser incluídos na busca?",
+  "settings_screen_sign_out_button_label": "Sair",
+  "settings_screen_sign_out_confirmation_title": "Sair",
+  "settings_screen_sign_out_confirmation_message": "Você tem certeza que deseja sair? Você vai precisar entrar denovo caso queira acessar seus dados.",
+  "settings_screen_sign_out_confirmation_button_label": "Sair",
+  "settings_screen_sign_out_confirmation_cancel_label": "Cancelar",
+  "settings_Screen_language_tile": "Idioma",
+
+  "roulette_screen_mood_tab_title": "Humor",
+  "roulette_screen_roulette_tab_title": "Roleta",
+  "roulette_screen_initial_state_label": "Carregue sua biblioteca primeiro",
+  "roulette_screen_no_mood_state_label": "Selecione um humor na aba anterior\ne volte aqui!",
+
+  "mood_tab_screen_title": "Seu Humor",
+  "mood_tab_screen_subtitle": "Como você está se sentindo hoje?",
+
+  "mood_calm_title": "Tranquilo",
+  "mood_calm_subtitle": "Relax e paz",
+  "mood_electric_title": "Eletrizante",
+  "mood_electric_subtitle": "Adrenalina pura",
+  "mood_brainiac_title": "Cerebral",
+  "mood_brainiac_subtitle": "Pense e vença",
+  "mood_immersive_title": "Imersivo",
+  "mood_immersive_subtitle": "Outro mundo",
+  "mood_tense_title": "Tenso",
+  "mood_tense_subtitle": "Cuidado...",
+  "mood_competitive_title": "Competitivo",
+  "mood_competitive_subtitle": "Glória eterna",
+
+  "roulette_winner_card_accept_challenge_button_label": "Aceitar desafio",
+  "roulette_winner_card_decline_challenge_button_label": "Girar novamente",
+  "roulette_winner_card_ready_to_play_text": "Pronto para jogar?",
+  "roulette_winner_card_title": "JOGO ESCOLHIDO",
+  "roulette_spin_button_label": "ESCOLHA SEU DESTINO",
+  "roulette_empty_library_text": "Sua biblioteca está vazia",
+
+  "sign_in_screen_title": "Entrar.",
+  "sign_in_screen_email_hinttext": "E-mail",
+  "sign_in_screen_password_hinttext": "Senha",
+  "sign_in_screen_sign_in_button_label": "Entrar",
+  "sign_in_screen_no_account_label": "Não tem uma conta?",
+
+  "sign_up_screen_title": "Cadastre-se.",
+  "sign_up_screen_username_hinttext": "Nome de usuário",
+  "sign_up_screen_email_hinttext": "E-mail",
+  "sign_up_screen_password_hinttext": "Senha",
+  "sign_up_screen_confirm_password_hinttext": "Confirme sua senha",
+  "sign_up_screen_sign_up_button_label": "Cadastrar",
+  "sign_up_screen_already_have_account_label": "Já tem uma conta?",
+
+  "validators_passwords_do_not_match": "As senhas não coincidem!",
+  "validators_the_fields_are_invalid": "Os campos são inválidos",
+  "validators_email_is_invalid": "E-mail inválido!",
+  "validators_username_cannot_be_empty": "O nome de usuário não pode estar vazio!",
+  "validators_password_is_not_strong_enough": "A senha não é forte o suficiente!",
+  "validators_email_cannot_be_empty": "O e-mail não pode estar vazio!",
+  "validators_password_cannot_be_empty": "A senha não pode estar vazia!"
+}

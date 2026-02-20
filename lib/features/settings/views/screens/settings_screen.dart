@@ -1,3 +1,5 @@
+import 'package:backlog_roulette/core/l10n/app_localizations.dart';
+import 'package:backlog_roulette/features/settings/views/widgets/change_language_tile.dart';
 import 'package:backlog_roulette/features/settings/views/widgets/include_free_tile.dart';
 import 'package:backlog_roulette/features/settings/views/widgets/settings_tab.dart';
 import 'package:backlog_roulette/features/settings/views/widgets/signout_tile.dart';
@@ -19,25 +21,38 @@ class SettingsScreen extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Configurações",
+                AppLocalizations.of(context)!.settings_screen_title,
                 style: GoogleFonts.poppins(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
-                "Ajuste o sistema como você quiser",
+                AppLocalizations.of(context)!.settings_screen_subtitle,
                 style: TextStyle(fontSize: 16, color: Colors.grey[600]),
               ),
               const SizedBox(height: 8),
               Expanded(
                 child: ListView(
                   children: [
-                    SettingsTab(label: "Appearance"),
+                    SettingsTab(
+                      label: AppLocalizations.of(
+                        context,
+                      )!.settings_screen_appearance_divider_label,
+                    ),
                     SwitchThemeTile(),
-                    SettingsTab(label: "Library"),
+                    ChangeLanguageTile(),
+                    SettingsTab(
+                      label: AppLocalizations.of(
+                        context,
+                      )!.settings_screen_library_divider_label,
+                    ),
                     IncludeFreeTile(),
-                    SettingsTab(label: 'My Account'),
+                    SettingsTab(
+                      label: AppLocalizations.of(
+                        context,
+                      )!.settings_screen_my_account_divider_label,
+                    ),
                     SignoutTile(),
                   ],
                 ),
