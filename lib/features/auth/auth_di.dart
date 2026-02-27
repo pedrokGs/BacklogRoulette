@@ -1,6 +1,6 @@
 import 'package:backlog_roulette/core/di/global_providers.dart';
-import 'package:backlog_roulette/features/auth/models/services/auth_service.dart';
-import 'package:backlog_roulette/features/auth/viewmodels/notifiers/auth_notifier.dart';
+import 'package:backlog_roulette/features/auth/data/services/auth_service.dart';
+import 'package:backlog_roulette/features/auth/domain/notifiers/auth_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // Injeção de Dependência para autenticação.
 

@@ -1,6 +1,8 @@
 class RoutePaths {
-  static final signin = '/auth/signin';
-  static final signup = '/auth/signup';
-  static final home = '/';
-  static final gameDetails = '/game/:gameId';
+  const RoutePaths._();
+
+  static const signin = '/auth/signin';
+  static const signup = '/auth/signup';
+  static const home = '/';
+  static const gameDetails = '/game/:gameId';
 }

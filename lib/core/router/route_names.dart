@@ -1,6 +1,8 @@
 class RouteNames {
-  static final signin = 'signin';
-  static final signup = 'signup';
-  static final home = 'home';
-  static final gameDetails = 'gameDetails';
+  const RouteNames._();
+
+  static const signin = 'signin';
+  static const signup = 'signup';
+  static const home = 'home';
+  static const gameDetails = 'gameDetails';
 }

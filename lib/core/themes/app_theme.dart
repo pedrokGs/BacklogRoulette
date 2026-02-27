@@ -1,36 +1,36 @@
-import 'package:backlog_roulette/core/themes/app_colors.dart';
-import 'package:backlog_roulette/core/themes/app_text_themes.dart';
+import 'package:backlog_roulette/core/themes/app_palette.dart';
+import 'package:backlog_roulette/core/themes/app_typography.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme {
   static final lightTheme = ThemeData.light().copyWith(
-    colorScheme: AppColors.getColorScheme(isDark: false),
-    textTheme: AppTextThemes.lightTextTheme,
+    colorScheme: AppPalette.getColorScheme(isDark: false),
+    textTheme: AppTypography.lightTextTheme,
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: const EdgeInsets.all(12.0),
-      enabledBorder: _outlineInputBorder(AppColors.borderLight),
-      focusedBorder: _outlineInputBorder(AppColors.primaryLightPurple),
-      errorBorder: _outlineInputBorder(AppColors.accentError),
-      focusedErrorBorder: _outlineInputBorder(AppColors.primaryLightPurple),
+      enabledBorder: _outlineInputBorder(AppPalette.borderLight),
+      focusedBorder: _outlineInputBorder(AppPalette.primaryLightPurple),
+      errorBorder: _outlineInputBorder(AppPalette.accentError),
+      focusedErrorBorder: _outlineInputBorder(AppPalette.primaryLightPurple),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      selectedItemColor: AppColors.primaryPurple,
-    )
+      selectedItemColor: AppPalette.primaryPurple,
+    ),
   );
 
   static final darkTheme = ThemeData.dark().copyWith(
-    colorScheme: AppColors.getColorScheme(isDark: true),
-    textTheme: AppTextThemes.darkTextTheme,
+    colorScheme: AppPalette.getColorScheme(isDark: true),
+    textTheme: AppTypography.darkTextTheme,
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: const EdgeInsets.all(12.0),
-      enabledBorder: _outlineInputBorder(AppColors.borderDark),
-      focusedBorder: _outlineInputBorder(AppColors.primaryDarkPurple),
-      errorBorder: _outlineInputBorder(AppColors.accentError),
-      focusedErrorBorder: _outlineInputBorder(AppColors.primaryDarkPurple),
+      enabledBorder: _outlineInputBorder(AppPalette.borderDark),
+      focusedBorder: _outlineInputBorder(AppPalette.primaryDarkPurple),
+      errorBorder: _outlineInputBorder(AppPalette.accentError),
+      focusedErrorBorder: _outlineInputBorder(AppPalette.primaryDarkPurple),
     ),
-      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        selectedItemColor: AppColors.primaryPurple,
-      )
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      selectedItemColor: AppPalette.primaryPurple,
+    ),
   );
 }
 

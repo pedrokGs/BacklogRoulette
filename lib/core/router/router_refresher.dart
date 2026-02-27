@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-/// Notify router to refresh itself
+/// Notifica o router para se recarregar
 ///
-/// Used for consuming the authStateChanges Stream to redirect user
+/// Usado para redirecionar usuário por meio da stream authUserChanges
 class RouterRefresher extends ChangeNotifier {
   RouterRefresher(Stream<dynamic> stream) {
     notifyListeners();

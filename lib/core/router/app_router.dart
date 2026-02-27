@@ -2,13 +2,14 @@ import 'package:backlog_roulette/core/router/route_names.dart';
 import 'package:backlog_roulette/core/router/route_paths.dart';
 import 'package:backlog_roulette/core/router/router_refresher.dart';
 import 'package:backlog_roulette/features/auth/auth_di.dart';
-import 'package:backlog_roulette/features/auth/views/screens/signin_screen.dart';
-import 'package:backlog_roulette/features/auth/views/screens/signup_screen.dart';
-import 'package:backlog_roulette/features/games/views/screens/game_details_screen.dart';
-import 'package:backlog_roulette/features/home/views/screens/home_screen.dart';
+import 'package:backlog_roulette/features/auth/presentation/screens/signin_screen.dart';
+import 'package:backlog_roulette/features/auth/presentation/screens/signup_screen.dart';
+import 'package:backlog_roulette/features/games/presentation/screens/game_details_screen.dart';
+import 'package:backlog_roulette/features/home/presentation/screens/home_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+/// Provider para o roteador do App
 final routerProvider = Provider<GoRouter>((ref) {
   final authNotifier = ref.watch(authNotifierProvider.notifier);
 

@@ -1,14 +1,15 @@
 import 'package:backlog_roulette/core/di/global_providers.dart';
-import 'package:backlog_roulette/features/games/models/enums/game_mood_enum.dart';
-import 'package:backlog_roulette/features/games/models/models/game/game.dart';
-import 'package:backlog_roulette/features/games/models/repositories/game_repository.dart';
-import 'package:backlog_roulette/features/games/models/services/igdb_service.dart';
-import 'package:backlog_roulette/features/games/models/services/steam_service.dart';
-import 'package:backlog_roulette/features/games/viewmodels/library/library_notifier.dart';
-import 'package:backlog_roulette/features/games/viewmodels/library/library_state.dart';
-import 'package:backlog_roulette/features/games/viewmodels/roulette/roulette_notifier.dart';
-import 'package:backlog_roulette/features/games/viewmodels/roulette/roulette_state.dart';
-import 'package:backlog_roulette/features/games/viewmodels/settings/include_free_games_notifier.dart';
+import 'package:backlog_roulette/features/games/data/models/game/game.dart';
+import 'package:backlog_roulette/features/games/data/repositories/game_repository.dart';
+import 'package:backlog_roulette/features/games/data/services/igdb_service.dart';
+import 'package:backlog_roulette/features/games/data/services/steam_service.dart';
+import 'package:backlog_roulette/features/games/domain/enums/game_mood_enum.dart';
+import 'package:backlog_roulette/features/games/domain/library/library_notifier.dart';
+import 'package:backlog_roulette/features/games/domain/library/library_state.dart';
+import 'package:backlog_roulette/features/games/domain/roulette/mood_notifier.dart';
+import 'package:backlog_roulette/features/games/domain/roulette/roulette_notifier.dart';
+import 'package:backlog_roulette/features/games/domain/roulette/roulette_state.dart';
+import 'package:backlog_roulette/features/settings/domain/controllers/include_free_games_notifier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // Injeção de Dependência para jogos.
 
@@ -44,14 +45,6 @@ final rouletteNotifier = NotifierProvider<RouletteNotifier, RouletteState>(
 final includeFreeGamesNotifier = NotifierProvider(IncludeFreeGamesNotifier.new);
 
 // Selectors
-/// Pega todos os jogos atualmente selecionados na roleta
-// final rouletteSelectedIdsProvider = Provider<Set<String>>(
-//   (ref) => ref.read(rouletteNotifier.notifier).selectedIds,
-// );
-
-final rouletteCurrentMoodProvider = Provider<GameMood>(
-  (ref) => ref.read(rouletteNotifier.notifier).currentMood,
-);
 
 /// Pega os jogos atualmente carregados na biblioteca do usuário
 final userGamesProvider = Provider<List<Game>>(
@@ -69,3 +62,7 @@ final gameByIdProvider = Provider.family<Game?, String>((ref, id) {
   final games = ref.watch(userGamesProvider);
   return games.firstWhere((g) => g.id == id);
 });
+
+final moodNotifierProvider = NotifierProvider<MoodNotifier, GameMood>(
+  MoodNotifier.new,
+);
