@@ -1,42 +1,54 @@
 import 'package:backlog_roulette/core/l10n/app_localizations.dart';
+import 'package:backlog_roulette/core/providers/home_screen_index_provider.dart';
 import 'package:backlog_roulette/features/games/presentation/screens/library_screen.dart';
 import 'package:backlog_roulette/features/games/presentation/screens/roulette_screen.dart';
 import 'package:backlog_roulette/features/settings/presentation/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   final PageController _pageController = PageController();
-  int selectedIndex = 0;
-  List<Widget> screens = [LibraryScreen(), RouletteScreen(), SettingsScreen()];
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    const List<Widget> screens = [
+      LibraryScreen(),
+      RouletteScreen(),
+      SettingsScreen(),
+    ];
+
     return Scaffold(
       body: PageView(
         controller: _pageController,
         onPageChanged: (index) {
-          setState(() {
-            selectedIndex = index;
-          });
+          ref.read(homeScreenIndexProvider.notifier).update(index);
         },
         children: screens,
       ),
       bottomNavigationBar: BottomNavigationBar(
         selectedIconTheme: IconThemeData(size: 40),
-
+        elevation: 5,
+        showUnselectedLabels: false,
+        enableFeedback: true,
         selectedFontSize: 17,
-        currentIndex: selectedIndex,
+        currentIndex: ref.watch(homeScreenIndexProvider),
         onTap: (index) {
           _pageController.animateToPage(
             index,
-            duration: const Duration(milliseconds: 400),
+            duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOut,
           );
         },
