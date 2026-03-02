@@ -1,7 +1,10 @@
 # 🎲 BacklogRoulette
 
-  <img src="assets/readme/banner.png" alt="BacklogRoulette Banner" width="1280">
+<p align="center">
+  <img src="assets/readme/banner.png" alt="BacklogRoulette Banner" width="100%">
+</p>
 
+<p align="center">
   <a href="https://flutter.dev">
     <img src="https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="Flutter">
   </a>
@@ -11,6 +14,7 @@
   <a href="https://firebase.google.com">
     <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" alt="Firebase">
   </a>
+</p>
 
 <h3 align="center">Kill your backlog, kill your back pain.</h3>
 
@@ -68,7 +72,7 @@ Unlike a simple random draw, the app uses an **intelligent filter system called 
 The app uses state-of-the-art Flutter development:
 
 - **UI/Core:** Flutter
-- **State Management & DI:** `riverpod` (Over 50 providers managing themes, languages, and business logic).
+- **State Management & DI:** `riverpod`
 - **Data Modeling & Immutability:** `freezed` (with pattern matching to ensure code safety).
 - **Backend & Cache:** Firebase (Auth & Firestore).
 - **Local Persistence:** `isar` (Planned for offline caching of games and settings).
