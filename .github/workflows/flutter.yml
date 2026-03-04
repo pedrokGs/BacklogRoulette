@@ -31,8 +31,9 @@ jobs:
       - name: Create Firebase Options
         run: |
           mkdir -p lib/core/firebase
-          echo "${{ secrets.FIREBASE_OPTIONS_CONTENT }}" > lib/core/firebase/firebase_options.dart
-
+          cat << 'EOF' > lib/core/firebase/firebase_options.dart
+          ${{ secrets.FIREBASE_OPTIONS_CONTENT }}
+          EOF
       - name: Generate Code
         run: dart run build_runner build --delete-conflicting-outputs
 
