@@ -30,9 +30,9 @@ void main() {
     );
 
     container.listen(authNotifierProvider, (_, __) {});
-  });
 
-  tearDown(() => container.dispose());
+    addTearDown(() => container.dispose());
+  });
 
   group('AuthNotifier - signInWithEmailAndPassword', () {
     test('updates state with user on success', () async {

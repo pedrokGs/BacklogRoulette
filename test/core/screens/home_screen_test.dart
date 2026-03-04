@@ -1,5 +1,5 @@
 import 'package:backlog_roulette/core/providers/home_screen_index_provider.dart';
-import 'package:backlog_roulette/core/screens/home_screen.dart';
+import 'package:backlog_roulette/core/router/route_paths.dart';
 import 'package:backlog_roulette/features/games/presentation/screens/library_screen.dart';
 import 'package:backlog_roulette/features/games/presentation/screens/roulette_screen.dart';
 import 'package:backlog_roulette/features/settings/presentation/screens/settings_screen.dart';
@@ -18,7 +18,9 @@ void main() {
   testWidgets('bottom navigation bar and its itens should render correctly', (
     widgetTester,
   ) async {
-    await widgetTester.pumpWidget(initializeWidget(HomeScreen()));
+    await widgetTester.pumpWidget(
+      initializeWidget(container: container, initialLocation: RoutePaths.home),
+    );
 
     final bottomNavFinder = find.byType(BottomNavigationBar);
     expect(bottomNavFinder, findsOneWidget);
@@ -44,7 +46,7 @@ void main() {
 
   testWidgets('navigation should be working', (widgetTester) async {
     await widgetTester.pumpWidget(
-      initializeWidget(HomeScreen(), container: container),
+      initializeWidget(container: container, initialLocation: RoutePaths.home),
     );
 
     // Start at library screen
