@@ -26,8 +26,6 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-  bool isLoading = false;
-
   @override
   void dispose() {
     emailController.dispose();
