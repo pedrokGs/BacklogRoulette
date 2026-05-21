@@ -80,35 +80,6 @@ The app uses state-of-the-art Flutter development:
 
 ---
 
-## 🏗️ Arquitetura e Estrutura
-
-O projeto adota uma abordagem **Feature-First** híbrida com **MVVM** e **Clean Architecture**, garantindo desacoplamento e facilidade de manutenção.
-
-```text
-lib/
-├── core/
-│   ├── di/
-│   ├── firebase/
-│   ├── l10n/
-│   ├── router/
-│   └── themes/
-├── features/
-│   ├── auth/
-│   │   ├── data/
-│   │   ├── domain/
-│   │   └── presentation/
-│   ├── games/
-│   │   ├── data/
-│   │   ├── domain/
-│   │   └── presentation/
-│   ├── home/
-│   │   └── presentation/
-│   └── settings/
-│       ├── domain/
-│       └── presentation/
-└── main.dart
-```
-
 ## 🧠 Data Strategy (Cross-Referencing)
 
 To optimize API performance and cost, the app uses a caching strategy in Firestore:
