@@ -21,12 +21,13 @@
 ---
 
 ## 🚀 About the Project
+> **Note:** This README.md was AI generated.
 
 **BacklogRoulette** is a Flutter app developed to solve the classic modern gamer's dilemma: having a huge library and not knowing what to play.
 
 Unlike a simple random draw, the app uses an **intelligent filter system called 'Moods'**. The user selects their current mood, and the algorithm weighs the games in the library that match that "vibe," ensuring that the roulette suggests the perfect game for the moment, while still keeping that chaotic randomness.
 
-> **Note:** This project was developed with a focus on high performance, modern UI with smooth animations, and a scalable architecture.
+> **Note:** This project was developed with a focus on high performance, modern UI with smooth animations, and a scalable architecture. In which the main purpose of this project is my learning.
 
 ---
 
