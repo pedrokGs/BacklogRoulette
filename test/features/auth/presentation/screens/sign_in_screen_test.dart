@@ -8,7 +8,9 @@ import 'package:backlog_roulette/features/auth/domain/entities/app_user.dart';
 import 'package:backlog_roulette/features/auth/presentation/screens/signin_screen.dart';
 import 'package:backlog_roulette/features/auth/presentation/screens/signup_screen.dart';
 import 'package:backlog_roulette/features/auth/presentation/widgets/auth_button.dart';
+import 'package:backlog_roulette/features/auth/presentation/widgets/auth_language_button.dart';
 import 'package:backlog_roulette/features/auth/presentation/widgets/custom_text_form_field.dart';
+import 'package:backlog_roulette/features/settings/presentation/widgets/language_selection_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -53,6 +55,24 @@ void main() {
     final createAnAccountLinkFinder = find.byType(RichText);
 
     expect(createAnAccountLinkFinder, findsAny);
+  });
+
+  testWidgets('should open the language selector before signing in', (
+    widgetTester,
+  ) async {
+    await widgetTester.pumpWidget(
+      initializeWidget(
+        container: container,
+        initialLocation: RoutePaths.signin,
+      ),
+    );
+
+    await widgetTester.tap(find.byType(AuthLanguageButton));
+    await widgetTester.pumpAndSettle();
+
+    expect(find.byType(LanguageSelectionSheet), findsOneWidget);
+    expect(find.text('English'), findsOneWidget);
+    expect(find.text('Français'), findsOneWidget);
   });
 
   testWidgets('sign up link should navigate to sign up screen', (

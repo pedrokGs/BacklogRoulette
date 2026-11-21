@@ -5,6 +5,7 @@ import 'package:backlog_roulette/features/auth/auth_di.dart';
 import 'package:backlog_roulette/features/auth/domain/entities/app_user.dart';
 import 'package:backlog_roulette/features/auth/presentation/utils/validators.dart';
 import 'package:backlog_roulette/features/auth/presentation/widgets/auth_button.dart';
+import 'package:backlog_roulette/features/auth/presentation/widgets/auth_language_button.dart';
 import 'package:backlog_roulette/features/auth/presentation/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -70,14 +71,22 @@ class _SigninScreenState extends ConsumerState<SigninScreen> {
     });
 
     return Scaffold(
-      body: Form(
-        key: _formKey,
-        autovalidateMode: AutovalidateMode.onUnfocus,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+      body: SafeArea(
+        child: Stack(
+          children: [
+            const Align(
+              alignment: Alignment.topRight,
+              child: AuthLanguageButton(),
+            ),
+            Positioned.fill(
+              child: Form(
+                key: _formKey,
+                autovalidateMode: AutovalidateMode.onUnfocus,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
               Text(
                 AppLocalizations.of(context)!.sign_in_screen_title,
                 style: Theme.of(
@@ -153,8 +162,12 @@ class _SigninScreenState extends ConsumerState<SigninScreen> {
                   ),
                 ),
               ),
-            ],
-          ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
